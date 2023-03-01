@@ -1,0 +1,10 @@
+<div class="searchDiv">
+    <!--pokemon corresponds to the @Input in search-pokemon.component.ts-->
+    <mat-form-field class="searchField">
+        <mat-label>Search...</mat-label>
+        <input matInput type="text" [(ngModel)]="pokemon" (keydown.enter)="searchPokemon(pokemon)"/>
+        <button *ngIf="pokemon" matSuffix mat-icon-button aria-label="Clear" (click)="pokemon=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+</div>

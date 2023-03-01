@@ -1,0 +1,182 @@
+<!--
+When the tableUpdated event is output from search-pokemon
+call the updatePokemonListFromSearch function with $event
+
+<div class="container">
+<div class="headerArea"></div>
+<div class="searchArea">
+<app-search-pokemon 
+  (tableUpdated)="updatePokemonListFromSearch($event)"
+></app-search-pokemon>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="queryArea">
+<app-query-pokemon
+  (tableUpdated)="updatePokemonListFromQuery($event)"
+></app-query-pokemon>
+</div>
+<br/>
+<div class="resultsArea">
+<table>
+  <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Type 1</th>
+    <th>Type 2</th>
+    <th>HP</th>
+    <th>Attack</th>
+    <th>Defense</th>
+    <th>Sp. Atk</th>
+    <th>Sp. Def</th>
+    <th>Speed</th>
+    <th>Total</th>
+    <th>Generation</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pokemon of pokemonList">
+      <td>{{ pokemon.ndexno }}</td>
+      <td>{{ pokemon.name }}</td>
+      <td>{{ pokemon.type1 }}</td>
+      <td>{{ pokemon.type2 }}</td>
+      <td>{{ pokemon.hp }}</td>
+      <td>{{ pokemon.attack }}</td>
+      <td>{{ pokemon.defense }}</td>
+      <td>{{ pokemon.spatk }}</td>
+      <td>{{ pokemon.spdef }}</td>
+      <td>{{ pokemon.speed }}</td>
+      <td>{{ pokemon.total }}</td>
+      <td>{{ pokemon.gen }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+-->
+<div class="wrapper">
+  <div class="one">
+    <app-search-pokemon 
+      (tableUpdated)="updatePokemonListFromSearch($event)"
+    ></app-search-pokemon>
+  </div>
+  <div class="two">
+    <table mat-table [dataSource]="pokemonList" class="mat-elevation-z8">
+      <ng-container matColumnDef="spritePath">
+        <th mat-header-cell *matHeaderCellDef>
+          <a href="https://bulbapedia.bulbagarden.net/wiki/Main_Page">
+            <img class="bulba_icon" src="/assets/bulbapedia_favicon.ico">
+          </a> 
+        </th>
+        <td mat-cell *matCellDef="let pokemon"> <img [src]="pokemon.spritePath" /> </td>
+      </ng-container>
+      <ng-container matColumnDef="ndexno">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.ndexno}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type1">
+        <th mat-header-cell *matHeaderCellDef> Type 1 </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.type1}} </td>
+      </ng-container>
+      <ng-container matColumnDef="type2">
+        <th mat-header-cell *matHeaderCellDef> Type 2 </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.type2}} </td>
+      </ng-container>
+      <ng-container matColumnDef="hp">
+        <th mat-header-cell *matHeaderCellDef> HP </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.hp}} </td>
+      </ng-container>
+      <ng-container matColumnDef="attack">
+        <th mat-header-cell *matHeaderCellDef> Atk </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.attack}} </td>
+      </ng-container>
+      <ng-container matColumnDef="defense">
+        <th mat-header-cell *matHeaderCellDef> Def </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.defense}} </td>
+      </ng-container>
+      <ng-container matColumnDef="spatk">
+        <th mat-header-cell *matHeaderCellDef> Sp. Atk </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.spatk}} </td>
+      </ng-container>
+      <ng-container matColumnDef="spdef">
+        <th mat-header-cell *matHeaderCellDef> Sp. Def </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.spdef}} </td>
+      </ng-container>
+      <ng-container matColumnDef="speed">
+        <th mat-header-cell *matHeaderCellDef> Speed </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.speed}} </td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.total}} </td>
+      </ng-container>
+      <ng-container matColumnDef="gen">
+        <th mat-header-cell *matHeaderCellDef> Gen </th>
+        <td mat-cell *matCellDef="let pokemon"> {{pokemon.gen}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!--
+    <table class="headers" cellSpacing="0" cellPadding="0">
+      <thead class="table_head">
+        <tr>
+          <th width="6%">                         
+            <a href="https://bulbapedia.bulbagarden.net/wiki/Main_Page">
+              <img class="bulba_icon" src="/assets/bulbapedia_favicon.ico">
+            </a>
+          </th>
+          <th width="4%">#</th>
+          <th width="14%">Name</th> 
+          <th width="10%">Type 1</th>
+          <th width="10%">Type 2</th>
+          <th width="7%">HP</th>
+          <th width="7%">Atk</th>
+          <th width="7%">Def</th>
+          <th width="7%">Sp.<br>Atk.</th>
+          <th width="7%">Sp.<br>Def.</th>
+          <th width="7%">Speed</th>
+          <th width="8%">Total</th>
+          <th width="6%">Gen</th>
+        </tr>
+      </thead>
+    </table>
+    <div class="list_scroll">
+      <table class="results">
+        <tbody>
+          <tr *ngFor="let pokemon of pokemonList">
+            <td width="6%">
+              <img [src]="pokemon.spritePath"/>
+            </td>
+            <td width="4%">{{ pokemon.ndexno }}</td>
+            <td width="14%">{{ pokemon.name }}</td>
+            <td width="10%">{{ pokemon.type1 }}</td>
+            <td width="10%">{{ pokemon.type2 }}</td>
+            <td width="7%">{{ pokemon.hp }}</td>
+            <td width="7%">{{ pokemon.attack }}</td>
+            <td width="7%">{{ pokemon.defense }}</td>
+            <td width="7%">{{ pokemon.spatk }}</td>
+            <td width="7%">{{ pokemon.spdef }}</td>
+            <td width="7%">{{ pokemon.speed }}</td>
+            <td width="8%">{{ pokemon.total }}</td>
+            <td width="6%">{{ pokemon.gen }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    -->
+  </div>
+  <div class="three">
+    <app-query-pokemon
+      (tableUpdated)="updatePokemonListFromQuery($event)"
+    ></app-query-pokemon>
+  </div>
+  <div class="four">
+    Four
+  </div>
+</div>
