@@ -12,4 +12,5 @@ export class Pokemon {
     total = 0;
     gen = 0;
     spritePath ?: string;
+    bulbaLink ?: string;
 }

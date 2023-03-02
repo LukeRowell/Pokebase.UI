@@ -25,6 +25,7 @@ export class AppComponent {
     for (var p of pokemon)
     {
       p.spritePath = "/assets/sprites/" + p.gen.toString() + "/" + p.name.toLowerCase().replace(': ', '-') + ".png";
+      p.bulbaLink = "https://bulbapedia.bulbagarden.net/wiki/" + p.name + "_(Pokémon)";
     }
   
     this.pokemonList = pokemon;
@@ -33,6 +34,7 @@ export class AppComponent {
   //When a pokemon is searched, clear the list and add the new pokemon
   updatePokemonListFromSearch(pokemon: Pokemon) {
     pokemon.spritePath = "/assets/sprites/" + pokemon.gen.toString() + "/" + pokemon.name.toLowerCase().replace(': ', '-') + ".png";
+    pokemon.bulbaLink = "https://bulbapedia.bulbagarden.net/wiki/" + pokemon.name + "_(Pokémon)";
     this.pokemonList = [];
     this.pokemonList.push(pokemon);
   }

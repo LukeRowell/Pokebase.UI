@@ -68,7 +68,11 @@ call the updatePokemonListFromSearch function with $event
             <img class="bulba_icon" src="/assets/bulbapedia_favicon.ico">
           </a> 
         </th>
-        <td mat-cell *matCellDef="let pokemon"> <img [src]="pokemon.spritePath" /> </td>
+        <td mat-cell *matCellDef="let pokemon"> 
+          <a [href]="pokemon.bulbaLink" target="_blank" rel="noopener noreferrer">
+            <img [src]="pokemon.spritePath" /> 
+          </a>
+        </td>
       </ng-container>
       <ng-container matColumnDef="ndexno">
         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -118,58 +122,9 @@ call the updatePokemonListFromSearch function with $event
         <th mat-header-cell *matHeaderCellDef> Gen </th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.gen}} </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-header-row style="background-color: #e3e3e3" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    <!--
-    <table class="headers" cellSpacing="0" cellPadding="0">
-      <thead class="table_head">
-        <tr>
-          <th width="6%">                         
-            <a href="https://bulbapedia.bulbagarden.net/wiki/Main_Page">
-              <img class="bulba_icon" src="/assets/bulbapedia_favicon.ico">
-            </a>
-          </th>
-          <th width="4%">#</th>
-          <th width="14%">Name</th> 
-          <th width="10%">Type 1</th>
-          <th width="10%">Type 2</th>
-          <th width="7%">HP</th>
-          <th width="7%">Atk</th>
-          <th width="7%">Def</th>
-          <th width="7%">Sp.<br>Atk.</th>
-          <th width="7%">Sp.<br>Def.</th>
-          <th width="7%">Speed</th>
-          <th width="8%">Total</th>
-          <th width="6%">Gen</th>
-        </tr>
-      </thead>
-    </table>
-    <div class="list_scroll">
-      <table class="results">
-        <tbody>
-          <tr *ngFor="let pokemon of pokemonList">
-            <td width="6%">
-              <img [src]="pokemon.spritePath"/>
-            </td>
-            <td width="4%">{{ pokemon.ndexno }}</td>
-            <td width="14%">{{ pokemon.name }}</td>
-            <td width="10%">{{ pokemon.type1 }}</td>
-            <td width="10%">{{ pokemon.type2 }}</td>
-            <td width="7%">{{ pokemon.hp }}</td>
-            <td width="7%">{{ pokemon.attack }}</td>
-            <td width="7%">{{ pokemon.defense }}</td>
-            <td width="7%">{{ pokemon.spatk }}</td>
-            <td width="7%">{{ pokemon.spdef }}</td>
-            <td width="7%">{{ pokemon.speed }}</td>
-            <td width="8%">{{ pokemon.total }}</td>
-            <td width="6%">{{ pokemon.gen }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    -->
   </div>
   <div class="three">
     <app-query-pokemon
