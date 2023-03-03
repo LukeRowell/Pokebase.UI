@@ -1,37 +1,11 @@
 .queryDiv {
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 1fr 2.25fr;
     grid-template-columns: repeat(2, 1fr);
     padding: 0px;
     height: 100%;
     width: 100%;
 }
-
-/*
-.buttonSet1 {
-    grid-column: 1;
-    grid-row: 1;
-    display: grid;
-    grid-template-rows: 1fr 5fr 1fr;
-    grid-template-columns: repeat(1, 1fr);
-    border: 1px solid black;
-    align-items: center;
-    justify-items: center;
-}
-*/
-
-/*
-.buttonSet2 {
-    grid-column: 2;
-    grid-row: 1;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(1, 1fr);
-    border: 1px solid black;
-    align-items: center;
-    justify-items: center;
-}
-*/
 
 .selections {
     grid-column: 1 / 1;
@@ -49,11 +23,29 @@
 
 h2 {
     text-align: center;
+    width: 10%;
+}
+
+.mat-expansion-panel {
+    width: 100%;
+    background-color: #e3e3e3;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+    border: 1px solid black;
+}
+  
+mat-slider {
+    width: 90%;
+}
+
+table {
+    width: 100%;
 }
 
 td {
-    height: 80px;
-    width: 80px;
+    width: 20%;
 }
 
 button {
@@ -62,10 +54,9 @@ button {
     border-radius: 5px;
     cursor: pointer;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-    font-size: 120%;
+    font-size: 100%;
     padding: 5px;
-    width: 80px;
-    height: 40px;
+    width: 100%;
 }
 
 button:focus {

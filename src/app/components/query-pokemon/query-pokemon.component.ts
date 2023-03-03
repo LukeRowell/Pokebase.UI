@@ -11,6 +11,7 @@ import { SearchValues } from 'src/app/models/SearchValues';
 export class QueryPokemonComponent {
   @Output() tableUpdated = new EventEmitter<Pokemon[]>();
   searchValues = new SearchValues();
+  test = 1;
 
   //Inject the pokemon service
   constructor(private pokemonService: PokemonService) {}
@@ -34,12 +35,16 @@ export class QueryPokemonComponent {
       .subscribe((pokemon: Pokemon[]) => this.tableUpdated.emit(pokemon));
   }
 
+  updateGenFrom(event?: any) {
+    this.searchValues.genFrom = parseInt(event.target.ariaValueText);
+  }
+
+  updateGenThru(event?: any) {
+    this.searchValues.genThru = parseInt(event.target.ariaValueText);
+  }
+
   log() {
-    console.log('type1: %s', this.searchValues.type1);
-    console.log('type2: %s', this.searchValues.type2);
-    console.log('gen from: %d', this.searchValues.genFrom);
-    console.log('gen thru: %d', this.searchValues.genThru);
-    console.log('sort: %s', this.searchValues.sortVal);
-    console.log('order: %s', this.searchValues.orderVal);
+    console.log(this.searchValues.genFrom);
+    console.log(this.searchValues.genThru);
   }
 }

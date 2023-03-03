@@ -84,7 +84,14 @@
         </mat-expansion-panel>
     </div>
     <div class="selections">
-        Include Pokemon from generation  
+        <h2>Generation:&nbsp;</h2>
+        <mat-slider min="1" max="9" step="1" value="test" showTickMarks discrete>
+            <input matSliderStartThumb (change)="updateGenFrom($event)">
+            <input matSliderEndThumb (change)="updateGenThru($event)">
+          </mat-slider>
+          <br>
+        <!--
+        <h3>Include Pokemon from generation</h3>
         <select [(ngModel)]="searchValues.genFrom">
             <option [ngValue]="1">1</option>
             <option [ngValue]="2">2</option>
@@ -109,6 +116,7 @@
             <option [ngValue]="9">9</option>
         </select>
         <br/>
+        -->
         Sort by 
         <select [(ngModel)]="searchValues.sortVal">
             <option [ngValue]="'ndexno'">National Dex #</option>
