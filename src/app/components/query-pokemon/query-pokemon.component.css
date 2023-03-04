@@ -1,6 +1,6 @@
 .queryDiv {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1.3fr 2fr 1fr;
     grid-template-columns: repeat(2, 1fr);
     padding: 0px;
     height: 100%;
@@ -10,18 +10,49 @@
 .selections {
     grid-column: 1 / 3;
     grid-row: 2;
-    border: 1px solid black;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
     height: 100%;
     text-align: center;
+    justify-content: center;
+}
+
+.type1selection, .type2selection {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.type1selection button {
+    width: 80px;
+    height: 40px;
+}
+
+.type2selection button {
+    width: 80px;
+    height: 40px;
+}
+
+.slider {
+    grid-column: 1 / 3;
+    grid-row: 2;
 }
 
 .sendQuery {
     grid-column: 1 / 3;
     grid-row: 3;
-    border: 1px solid black;
     width: 100%;
     height: 100%;
+    text-align: center;
+}
+
+.sendQuery button {
+    width: 40%;
+    height: 40%;
+    background-color: green;
 }
 
 .mat-expansion-panel {

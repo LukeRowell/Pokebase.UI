@@ -84,63 +84,26 @@
         </mat-expansion-panel>
     </div>
     <div class="selections">
-        <h2>Generation:&nbsp;</h2>
-        <mat-slider min="1" max="9" step="1" value="test" showTickMarks discrete>
-            <input matSliderStartThumb (change)="updateGenFrom($event)">
-            <input matSliderEndThumb (change)="updateGenThru($event)">
+        <div class="type1selection">
+            <h2>Type 1:&nbsp;&nbsp;
+                <button class="button{{searchValues.type1}}">{{searchValues.type1}}</button>
+            </h2>
+        </div>
+        <div class="type2selection">
+            <h2>Type 2:&nbsp;&nbsp;
+                <button class="button{{searchValues.type2}}">{{searchValues.type2}}</button>
+            </h2>
+        </div>
+        <div class="slider">
+            <h2>Generation</h2>
+            <mat-slider min="1" max="9" step="1" value="test" showTickMarks discrete>
+                <input matSliderStartThumb (change)="updateGenFrom($event)">
+                <input matSliderEndThumb (change)="updateGenThru($event)">
           </mat-slider>
-          <br>
-        <!--
-        <h3>Include Pokemon from generation</h3>
-        <select [(ngModel)]="searchValues.genFrom">
-            <option [ngValue]="1">1</option>
-            <option [ngValue]="2">2</option>
-            <option [ngValue]="3">3</option>
-            <option [ngValue]="4">4</option>
-            <option [ngValue]="5">5</option>
-            <option [ngValue]="6">6</option>
-            <option [ngValue]="7">7</option>
-            <option [ngValue]="8">8</option>
-            <option [ngValue]="9">9</option>
-        </select>
-        through 
-        <select [(ngModel)]="searchValues.genThru">
-            <option [ngValue]="1">1</option>
-            <option [ngValue]="2">2</option>
-            <option [ngValue]="3">3</option>
-            <option [ngValue]="4">4</option>
-            <option [ngValue]="5">5</option>
-            <option [ngValue]="6">6</option>
-            <option [ngValue]="7">7</option>
-            <option [ngValue]="8">8</option>
-            <option [ngValue]="9">9</option>
-        </select>
-        <br/>
-        Sort by 
-        <select [(ngModel)]="searchValues.sortVal">
-            <option [ngValue]="'ndexno'">National Dex #</option>
-            <option [ngValue]="'name'">Name</option>
-            <option [ngValue]="'hp'">HP</option>
-            <option [ngValue]="'attack'">Attack</option>
-            <option [ngValue]="'defense'">Defense</option>
-            <option [ngValue]="'spatk'">Sp. Attack</option>
-            <option [ngValue]="'spdef'">Sp. Defense</option>
-            <option [ngValue]="'speed'">Speed</option>
-            <option [ngValue]="'total'">Total</option>
-            <option [ngValue]="'gen'">Generation</option>
-        </select>
-        <br/>
-        Order
-        <select [(ngModel)]="searchValues.orderVal">
-            <option [ngValue]="'ASC'">Ascending</option>
-            <option [ngValue]="'DESC'">Descending</option>
-        </select>
-        -->
+        </div> 
     </div>
     <div class="sendQuery">
         <br/>
         <button (click)="queryPokemon()">Query</button>
-        <br/>
-        <button (click)="log()">Log</button>
     </div>
 </div>

@@ -19,6 +19,7 @@ export class AppComponent {
   searchValues = new SearchValues();
   displayedColumns: string[] = ['spritePath', 'ndexno', 'name', 'type1', 'type2', 'hp', 'attack', 'defense', 'spatk', 'spdef', 'speed', 'total', 'gen'];
   dataSource = new MatTableDataSource(this.pokemonList);
+  direction = 'horizontal';
 
   constructor(private pokemonService: PokemonService) { }
 
