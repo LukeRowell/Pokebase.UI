@@ -27,6 +27,8 @@ export class QueryPokemonComponent {
     this.pokemonService
       .getPokemon(this.searchValues)
       .subscribe((pokemon: Pokemon[]) => this.tableUpdated.emit(pokemon));
+
+    this.searchValues.genThru = 9;
   }
 
   queryPokemon() {

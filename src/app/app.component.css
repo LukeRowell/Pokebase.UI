@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
     background-color: rgb(204, 0, 0, 0.7);
+    overflow-x: hidden;
 }
 
 .one {
@@ -15,6 +16,10 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 25%;
+}
+
+table {
+    width: 100%;
 }
 
 .two {
@@ -49,17 +54,22 @@ img {
 }
 
 th {
+    padding: 0px;
+    border: 1px solid gray;
+    border-bottom: 2px solid black;
+    margin: 0px;
+}
+
+::ng-deep .mat-sort-header-container {
+    display: flex;  
+    justify-content: center; 
+}
+
+td {
     text-align: center;
     padding: 0px;
     border: 1px solid gray;
     margin: 0px;
-}
-
-td {
-  text-align: center;
-  padding: 0px;
-  border: 1px solid gray;
-  margin: 0px;
 }
 
 tr:nth-child(even) {
@@ -123,7 +133,7 @@ tr:nth-child(odd) {
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {

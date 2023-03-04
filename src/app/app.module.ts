@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatIconModule,
     MatTableModule,
     MatExpansionModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
