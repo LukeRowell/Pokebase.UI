@@ -1,7 +1,4 @@
 <!--pokemon corresponds to the @Input in search-pokemon.component.ts-->
-<div class="searchDiv">
-  <div class="testing">
-  </div>
 <mat-form-field appearance="fill">
   <mat-label>Search...</mat-label>
   <input matInput type="text" [(ngModel)]="pokemon" (keydown.enter)="searchPokemon(pokemon)"/>
@@ -9,4 +6,3 @@
   <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
-</div>

@@ -4,6 +4,7 @@ import { PokemonService } from './services/pokemon.service';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,18 @@ export class AppComponent {
   searchValues = new SearchValues();
   displayedColumns: string[] = ['spritePath', 'ndexno', 'name', 'type1', 'type2', 'hp', 'attack', 'defense', 'spatk', 'spdef', 'speed', 'total', 'gen'];
   dataSource = new MatTableDataSource(this.pokemonList);
-  direction = 'horizontal';
+  results = 0;
+  resultsPercentage = "";
+
+  // Pie
+  public pieChartOptions: ChartOptions<'pie'> = {
+    responsive: false,
+  };
+
+  public pieChartDatasets = [{data: [0]}];
+  public pieChartLegend = false;
+  public pieChartPlugins = [];
+  public pieChartLabels = [ [ 'Generation', '1' ], [ 'Generation', '2']];
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -71,8 +83,9 @@ export class AppComponent {
       }
     });
 
-    console.log(this.pokemonList);
     this.dataSource = new MatTableDataSource(this.pokemonList);
+    this.results = this.pokemonList.length;
+    this.resultsPercentage = ((this.results / 1008) * 100).toFixed(2);
   }
 
   compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
@@ -80,14 +93,29 @@ export class AppComponent {
   }
 
   updatePokemonListFromQuery(pokemon: Pokemon[]) {
+    let test = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
     for (var p of pokemon)
     {
       p.spritePath = "/assets/sprites/" + p.gen.toString() + "/" + p.name.toLowerCase().replace(': ', '-') + ".png";
       p.bulbaLink = "https://bulbapedia.bulbagarden.net/wiki/" + p.name + "_(Pokémon)";
+      
+      test[p.gen - 1]++;
     }
   
     this.pokemonList = pokemon;
     this.dataSource = new MatTableDataSource(this.pokemonList);
+    this.results = this.pokemonList.length;
+    this.resultsPercentage = ((this.results / 1008) * 100).toFixed(2);
+    this.pieChartDatasets = [{data: test}];
+    this.pieChartLabels = [];
+
+    for (let i = 0; i < test.length; i++)
+    {
+      this.pieChartLabels.push(['Generation', (i + 1).toString(), ((test[i]/this.pokemonList.length) * 100).toFixed(0) + '%'])
+    }
+
+    //this.pieChartLabels = [['Generation', '1', ((test[0]/this.pokemonList.length) * 100).toFixed(0) + '%'], ['Generation', '2', ((test[1]/this.pokemonList.length) * 100).toFixed(0) + '%']];
   }
 
   //When a pokemon is searched, clear the list and add the new pokemon
@@ -97,5 +125,7 @@ export class AppComponent {
     this.pokemonList = [];
     this.pokemonList.push(pokemon);
     this.dataSource = new MatTableDataSource(this.pokemonList);
+    this.results = this.pokemonList.length;
+    this.resultsPercentage = ((this.results / 1008) * 100).toFixed(2);
   }
 }

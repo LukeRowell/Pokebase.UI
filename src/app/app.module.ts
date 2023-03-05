@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSortModule } from '@angular/material/sort';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatExpansionModule,
     MatSliderModule,
-    MatSortModule
+    MatSortModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,13 @@
 <div class="wrapper">
-  <div class="one" id="one">
-    <app-search-pokemon 
-      (tableUpdated)="updatePokemonListFromSearch($event)"
-    ></app-search-pokemon>
+  <div class="one">
+    <div class="searchField">
+      <app-search-pokemon 
+        (tableUpdated)="updatePokemonListFromSearch($event)"
+      ></app-search-pokemon>
+    </div>
+    <div class="resultsText">
+      <h4>Results: {{results}} ({{resultsPercentage}}% of all Pokémon)</h4>
+    </div>
   </div>
   <div class="two">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
@@ -76,6 +81,13 @@
     ></app-query-pokemon>
   </div>
   <div class="four">
-    Four
+    <canvas baseChart
+      [type]="'pie'"
+      [datasets]="pieChartDatasets"
+      [labels]="pieChartLabels"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend">
+    </canvas>
   </div>
 </div>
