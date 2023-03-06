@@ -1,10 +1,12 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Pokemon } from './models/pokemon';
-import { PokemonService } from './services/pokemon.service';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChartOptions } from 'chart.js';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+import { DialogValues } from './models/DialogValues';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +24,7 @@ export class AppComponent {
   dataSource = new MatTableDataSource(this.pokemonList);
   results = 0;
   resultsPercentage = "";
+  dialogValues = new DialogValues();
 
   // Pie
   public pieChartOptions: ChartOptions<'pie'> = {
@@ -33,7 +36,7 @@ export class AppComponent {
   public pieChartPlugins = [];
   public pieChartLabels = [ [ 'Generation', '1' ], [ 'Generation', '2']];
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() : void { }
 
@@ -112,7 +115,7 @@ export class AppComponent {
 
     for (let i = 0; i < test.length; i++)
     {
-      this.pieChartLabels.push(['Generation', (i + 1).toString(), ((test[i]/this.pokemonList.length) * 100).toFixed(0) + '%'])
+      this.pieChartLabels.push(['Generation', (i + 1).toString(), ((test[i]/this.pokemonList.length) * 100).toFixed(0) + '%']);
     }
 
     //this.pieChartLabels = [['Generation', '1', ((test[0]/this.pokemonList.length) * 100).toFixed(0) + '%'], ['Generation', '2', ((test[1]/this.pokemonList.length) * 100).toFixed(0) + '%']];
@@ -127,5 +130,61 @@ export class AppComponent {
     this.dataSource = new MatTableDataSource(this.pokemonList);
     this.results = this.pokemonList.length;
     this.resultsPercentage = ((this.results / 1008) * 100).toFixed(2);
+  }
+
+  exportListToCSV() {
+    let csvContent = "data:text/csv;charset=utf-8,";
+
+    for (var p of this.pokemonList) 
+    {
+      let row = p.ndexno + ',' + p.name + ',' + p.type1 + ',' + p.type2 + ',' + p.hp + ',' + p.attack + ',' + p.defense + ',' + p.spatk + ',' + p.spdef + ',' + p.speed + ',' + p.total + ',' + p.gen + '\n';
+      csvContent += row;
+    }
+
+    var encodedURI = encodeURI(csvContent);
+    var link = document.createElement("a");
+    var d = new Date();
+    var n = d.toLocaleTimeString();
+
+    n = n.slice(0, n.length - 3);
+
+    link.setAttribute("href", encodedURI);
+    link.setAttribute("download", "results_" + n + ".csv");
+
+    document.body.appendChild(link);
+
+    link.click();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogExportListDialog, {
+      width: '33%',
+      height: '33%',
+      panelClass: 'custom-modal',
+      data: this.dialogValues
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.isExporting) {
+        this.exportListToCSV();
+        console.log(this.dialog);
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-export-list-dialog',
+  templateUrl: 'dialog-export-list-dialog.html',
+})
+export class DialogExportListDialog {
+  dialogValues = new DialogValues();
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogValues) {
+    this.dialogValues = data;
+  }
+
+  setExporting() {
+    this.dialogValues.isExporting = true;
   }
 }

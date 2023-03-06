@@ -15,8 +15,6 @@ export class PokemonService {
 
   //Query for a list of pokemon with the specified parameters
   public getPokemon(searchValues: SearchValues) : Observable<Pokemon[]> {
-    //console.log(searchValues);
-    //console.log(`${environment.apiUrl}/${this.url}`);
     return this.http.get<Pokemon[]>(`${environment.apiUrl}/${this.url}?type1=${searchValues.type1}&type2=${searchValues.type2}&genFrom=${searchValues.genFrom}&genThru=${searchValues.genThru}&sortVal=${searchValues.sortVal}&orderVal=${searchValues.orderVal}`);
   }
 

@@ -14,12 +14,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSortModule } from '@angular/material/sort';
 import { NgChartsModule } from 'ng2-charts';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogExportListDialog } from './app.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchPokemonComponent,
-    QueryPokemonComponent
+    QueryPokemonComponent,
+    DialogExportListDialog
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,11 @@ import { NgChartsModule } from 'ng2-charts';
     MatExpansionModule,
     MatSliderModule,
     MatSortModule,
-    NgChartsModule
+    NgChartsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

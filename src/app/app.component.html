@@ -5,9 +5,6 @@
         (tableUpdated)="updatePokemonListFromSearch($event)"
       ></app-search-pokemon>
     </div>
-    <div class="resultsText">
-      <h4>Results: {{results}} ({{resultsPercentage}}% of all Pokémon)</h4>
-    </div>
   </div>
   <div class="two">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
@@ -24,51 +21,51 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="ndexno">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="ndexno"> # </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="ndexno">#</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.ndexno}} </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.name}} </td>
       </ng-container>
       <ng-container matColumnDef="type1">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type 1 </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type 1</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.type1}} </td>
       </ng-container>
       <ng-container matColumnDef="type2">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type 2 </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type 2</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.type2}} </td>
       </ng-container>
       <ng-container matColumnDef="hp">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> HP </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>HP</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.hp}} </td>
       </ng-container>
       <ng-container matColumnDef="attack">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Atk </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Atk</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.attack}} </td>
       </ng-container>
       <ng-container matColumnDef="defense">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Def </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Def</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.defense}} </td>
       </ng-container>
       <ng-container matColumnDef="spatk">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sp. Atk </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sp. Atk</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.spatk}} </td>
       </ng-container>
       <ng-container matColumnDef="spdef">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sp. Def </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sp. Def</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.spdef}} </td>
       </ng-container>
       <ng-container matColumnDef="speed">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Speed </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Speed</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.speed}} </td>
       </ng-container>
       <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.total}} </td>
       </ng-container>
       <ng-container matColumnDef="gen">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Gen </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gen</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.gen}} </td>
       </ng-container>
       <tr mat-header-row style="background-color: #e3e3e3" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -81,6 +78,9 @@
     ></app-query-pokemon>
   </div>
   <div class="four">
+    <div class="resultsText">
+      <h4>Results: {{results}} ({{resultsPercentage}}% of all Pokémon)</h4>
+    </div>
     <canvas baseChart
       [type]="'pie'"
       [datasets]="pieChartDatasets"
@@ -89,5 +89,12 @@
       [plugins]="pieChartPlugins"
       [legend]="pieChartLegend">
     </canvas>
+    <button class="exportButton" (click)="openDialog()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+      </svg>
+      Export list to .csv
+    </button>
   </div>
 </div>
