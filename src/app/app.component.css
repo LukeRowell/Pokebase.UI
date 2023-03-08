@@ -169,22 +169,46 @@ img {
     align-items: center;
     justify-items: center;
     text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 10fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .resultsText {
+    grid-row: 1;
+    grid-column: 1 / 5;
+    text-align: center;
+    width: 100%;
+    background-color: red;
+}
+
+.chart1 {
     grid-row: 2;
-    grid-column: 3 / 7;
-    position: relative;
+    grid-column: 1;
+}
+
+.chart2 {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.chart3 {
+    grid-row: 2;
+    grid-column: 3;
+}
+
+.chart4 {
+    grid-row: 2;
+    grid-column: 4;
+}
+
+.exportArea {
+    grid-row: 3;
+    grid-column: 1 / 5;
 }
 
 .resultsText h4 {
-    text-align: left;
     color: white;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 0;
-    margin-left: 10px;
 }
 
 .exportButton {

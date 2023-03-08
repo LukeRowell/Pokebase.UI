@@ -31,10 +31,16 @@ export class AppComponent {
     responsive: false,
   };
 
-  public pieChartDatasets = [{data: [0]}];
+  public genChartDatasets = [{ data: [0] }];
+  public typeChartDatasets = [{ data: [0], backgroundColor: [''] }];
+  public monoVsDualChartDatasets = [{ data: [0], backgroundColor: ['darkred', 'darkgreen'] }];
+  public totalChartDatasets = [{ data: [0] }];
   public pieChartLegend = false;
   public pieChartPlugins = [];
-  public pieChartLabels = [ [ 'Generation', '1' ], [ 'Generation', '2']];
+  public genChartLabels = [['']];
+  public typeChartLabels = [['']];
+  public monoVsDualChartLabels = [['']];
+  public totalChartLabels = [['']];
 
   constructor(public dialog: MatDialog) { }
 
@@ -96,29 +102,89 @@ export class AppComponent {
   }
 
   updatePokemonListFromQuery(pokemon: Pokemon[]) {
-    let test = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    for (var p of pokemon)
-    {
-      p.spritePath = "/assets/sprites/" + p.gen.toString() + "/" + p.name.toLowerCase().replace(': ', '-') + ".png";
-      p.bulbaLink = "https://bulbapedia.bulbagarden.net/wiki/" + p.name + "_(Pokémon)";
-      
-      test[p.gen - 1]++;
-    }
-  
     this.pokemonList = pokemon;
     this.dataSource = new MatTableDataSource(this.pokemonList);
     this.results = this.pokemonList.length;
     this.resultsPercentage = ((this.results / 1008) * 100).toFixed(2);
-    this.pieChartDatasets = [{data: test}];
-    this.pieChartLabels = [];
+    this.genChartLabels = [];
+    this.typeChartLabels = [];
+    this.totalChartLabels = [];
+    this.typeChartDatasets[0].backgroundColor = [];
+    this.genChartDatasets[0].data = [];
+    this.typeChartDatasets[0].data = [];
+    this.monoVsDualChartDatasets[0].data = [];
+    this.totalChartDatasets[0].data = [];
+    let i = 0;
+    let genDataArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let typeDict: { [type: string]: [number, string]} = 
+                    {'Bug': [0, '#AABB22'], 'Dark': [0, '#705848'], 'Dragon': [0, '#7766EE'], 'Electric': [0, '#FFCC33'],
+                     'Fairy': [0, '#EE99EE'], 'Fighting': [0, '#BB5544'], 'Fire': [0, '#FF4422'], 'Flying': [0, '#8899FF'],
+                     'Ghost': [0, '#6666BB'], 'Grass': [0, '#77CC55'], 'Ground': [0, '#DDBB55'], 'Ice': [0, '#66CCFF'],
+                     'Normal': [0, '#AAAA99'], 'Poison': [0, '#AA5599'], 'Psychic': [0, '#FF5599'], 'Rock': [0, '#BBAA66'],
+                     'Steel': [0, '#AAAABB'], 'Water': [0, '#3399FF'], 'None': [0, 'black']
+                    };
+    let totalDict: { [statRange: string]: number } = {'0 - 99': 0, '100 - 199': 0, '200 - 299': 0, '300 - 399': 0, '400 - 499': 0, '500 - 599': 0, '600 - 699': 0, '700 - 799': 0};
 
-    for (let i = 0; i < test.length; i++)
-    {
-      this.pieChartLabels.push(['Generation', (i + 1).toString(), ((test[i]/this.pokemonList.length) * 100).toFixed(0) + '%']);
+    for (var p of pokemon) {
+      p.spritePath = "/assets/sprites/" + p.gen.toString() + "/" + p.name.toLowerCase().replace(': ', '-') + ".png";
+      p.bulbaLink = "https://bulbapedia.bulbagarden.net/wiki/" + p.name + "_(Pokémon)";
+      
+      genDataArr[p.gen - 1]++;
+      typeDict[p.type1][0]++;
+      p.type2 == null ? typeDict['None'][0]++ : typeDict[p.type2][0]++;
+
+      if (p.total <= 99) {
+        totalDict['0 - 99']++;
+      }
+      else if (p.total >= 100 && p.total <= 199) {
+        totalDict['100 - 199']++;
+      }
+      else if (p.total >= 200 && p.total <= 299) {
+        totalDict['200 - 299']++;
+      }
+      else if (p.total >= 300 && p.total <= 399) {
+        totalDict['300 - 399']++;
+      }
+      else if (p.total >= 400 && p.total <= 499) {
+        totalDict['400 - 499']++;
+      }
+      else if (p.total >= 500 && p.total <= 599) {
+        totalDict['500 - 599']++;
+      }
+      else if (p.total >= 600 && p.total <= 699) {
+        totalDict['600 - 699']++;
+      }
+      else if (p.total >= 700) {
+        totalDict['700 - 799']++;
+      }
     }
 
-    //this.pieChartLabels = [['Generation', '1', ((test[0]/this.pokemonList.length) * 100).toFixed(0) + '%'], ['Generation', '2', ((test[1]/this.pokemonList.length) * 100).toFixed(0) + '%']];
+    for (let i = 0; i < genDataArr.length; i++) {
+      if (genDataArr[i] != 0) {
+        this.genChartDatasets[0].data.push(genDataArr[i]);
+        this.genChartLabels.push(['Gen ' + (i + 1).toString(), ((genDataArr[i]/this.pokemonList.length) * 100).toFixed(0) + '%']);
+      }
+    }
+
+    for (let key in typeDict) {
+      if (key != 'None' && typeDict[key][0] > 0) {
+        this.typeChartDatasets[0].data.push(typeDict[key][0]);
+        this.typeChartLabels.push([key, typeDict[key][0].toString()]);
+        this.typeChartDatasets[0].backgroundColor.push(typeDict[key][1]);
+      }
+      i++;
+    }
+
+    this.monoVsDualChartDatasets[0].data.push(typeDict['None'][0]);
+    this.monoVsDualChartDatasets[0].data.push(pokemon.length - typeDict['None'][0]);
+    this.monoVsDualChartLabels = [ ['Mono-type'], ['Dual-type'] ];
+
+    for (let key in totalDict) {
+      if (totalDict[key] != 0) {
+        this.totalChartDatasets[0].data.push(totalDict[key]);
+        this.totalChartLabels.push([key]);
+      }
+    }
   }
 
   //When a pokemon is searched, clear the list and add the new pokemon
@@ -133,15 +199,101 @@ export class AppComponent {
   }
 
   exportListToCSV() {
-    let csvContent = "data:text/csv;charset=utf-8,";
+    let fileContent = "data:text/csv;charset=utf-8,";
+    let headerRow = "";
+
+    if (this.dialogValues.includeHeaders) {
+      if (this.dialogValues.includeNdexno) {
+        headerRow += "No.,"; 
+      }
+      if (this.dialogValues.includeName) {
+        headerRow += "Name,"; 
+      }
+      if (this.dialogValues.includeType1) {
+        headerRow += "Type 1,"; 
+      }
+      if (this.dialogValues.includeType2) {
+        headerRow += "Type 2,"; 
+      }
+      if (this.dialogValues.includeHP) {
+        headerRow += "HP,"; 
+      }
+      if (this.dialogValues.includeAttack) {
+        headerRow += "Attack,"; 
+      }
+      if (this.dialogValues.includeDefense) {
+        headerRow += "Defense,"; 
+      }
+      if (this.dialogValues.includeSpatk) {
+        headerRow += "Sp. Atk,"; 
+      }
+      if (this.dialogValues.includeSpdef) {
+        headerRow += "Sp. Def,"; 
+      }
+      if (this.dialogValues.includeSpeed) {
+        headerRow += "Speed,"; 
+      }
+      if (this.dialogValues.includeTotal) {
+        headerRow += "Total,"; 
+      }
+      if (this.dialogValues.includeGen) {
+        headerRow += "Gen,"; 
+      }
+
+      headerRow = headerRow.substring(0, headerRow.length - 1);
+      headerRow += "\n";
+
+      fileContent += headerRow;
+    }
 
     for (var p of this.pokemonList) 
     {
-      let row = p.ndexno + ',' + p.name + ',' + p.type1 + ',' + p.type2 + ',' + p.hp + ',' + p.attack + ',' + p.defense + ',' + p.spatk + ',' + p.spdef + ',' + p.speed + ',' + p.total + ',' + p.gen + '\n';
-      csvContent += row;
+      let row = "";
+
+      if (this.dialogValues.includeNdexno) {
+        row += p.ndexno + ","; 
+      }
+      if (this.dialogValues.includeName) {
+        row += p.name + ","; 
+      }
+      if (this.dialogValues.includeType1) {
+        row += p.type1 + ","; 
+      }
+      if (this.dialogValues.includeType2) {
+        row += (p.type2 == null ? "" : p.type2) + ","; 
+      }
+      if (this.dialogValues.includeHP) {
+        row += p.hp + ","; 
+      }
+      if (this.dialogValues.includeAttack) {
+        row += p.attack + ","; 
+      }
+      if (this.dialogValues.includeDefense) {
+        row += p.defense + ","; 
+      }
+      if (this.dialogValues.includeSpatk) {
+        row += p.spatk + ","; 
+      }
+      if (this.dialogValues.includeSpdef) {
+        row += p.spdef + ","; 
+      }
+      if (this.dialogValues.includeSpeed) {
+        row += p.speed + ","; 
+      }
+      if (this.dialogValues.includeTotal) {
+        row += p.total + ","; 
+      }
+      if (this.dialogValues.includeGen) {
+        row += p.gen + ","; 
+      }
+
+      row = row.substring(0, row.length - 1);
+      row += "\n";
+
+      fileContent += row;
     }
 
-    var encodedURI = encodeURI(csvContent);
+    var encodedURI = encodeURI(fileContent);
     var link = document.createElement("a");
     var d = new Date();
     var n = d.toLocaleTimeString();
@@ -159,7 +311,8 @@ export class AppComponent {
   openDialog() {
     const dialogRef = this.dialog.open(DialogExportListDialog, {
       width: '33%',
-      height: '33%',
+      height: '35%',
+      maxWidth: '500px',
       panelClass: 'custom-modal',
       data: this.dialogValues
     });
@@ -167,7 +320,6 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result.isExporting) {
         this.exportListToCSV();
-        console.log(this.dialog);
       }
     });
   }
