@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { DialogExportListDialog } from './app.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -21,7 +21,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="ndexno">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="ndexno">#</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.ndexno}} </td>
       </ng-container>
       <ng-container matColumnDef="name">
@@ -81,54 +81,60 @@
     <div class="resultsText">
       <h4>Results: {{results}} ({{resultsPercentage}}% of all Pokémon)</h4>
     </div>
-    <div class="chart1">
-      <h3>Generation</h3>
-      <canvas baseChart
-        [type]="'pie'"
-        [datasets]="genChartDatasets"
-        [labels]="genChartLabels"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [legend]="pieChartLegend"
-      >
-      </canvas>
-    </div>
-    <div class="chart2">
-      <h3>Type</h3>
-      <canvas baseChart
-        [type]="'pie'"
-        [datasets]="typeChartDatasets"
-        [labels]="typeChartLabels"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [legend]="pieChartLegend"
-      >
-      </canvas>
-    </div>
-    <div class="chart3">
-      <h3>Mono-type vs. Dual-type</h3>
-      <canvas baseChart
-        [type]="'pie'"
-        [datasets]="monoVsDualChartDatasets"
-        [labels]="monoVsDualChartLabels"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [legend]="pieChartLegend"
-      >
-      </canvas>
-    </div>
-    <div class="chart4">
-      <h3>Total</h3>
-      <canvas baseChart
-        [type]="'pie'"
-        [datasets]="totalChartDatasets"
-        [labels]="totalChartLabels"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [legend]="pieChartLegend"
-      >
-      </canvas>
-    </div>
+    <mat-tab-group style="width: 100%">
+      <mat-tab label="Generation">
+        <div class="chart1">
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="genChartDatasets"
+            [labels]="genChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
+      </mat-tab>
+      <mat-tab label="Type">
+        <div class="chart2">
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="typeChartDatasets"
+            [labels]="typeChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
+      </mat-tab>
+      <mat-tab label="Mono-type vs. Dual-type">
+        <div class="chart3">
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="monoVsDualChartDatasets"
+            [labels]="monoVsDualChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
+      </mat-tab>
+      <mat-tab label="Total">
+        <div class="chart4">
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="totalChartDatasets"
+            [labels]="totalChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
     <div class="exportArea">
       <button class="exportButton" (click)="openDialog()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">

@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Optional } from '@angular/core';
 import { Pokemon } from './models/pokemon';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
@@ -7,6 +7,7 @@ import { ChartOptions } from 'chart.js';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { DialogValues } from './models/DialogValues';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,7 @@ export class AppComponent {
   public monoVsDualChartLabels = [['']];
   public totalChartLabels = [['']];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() : void { }
 
@@ -199,8 +200,19 @@ export class AppComponent {
   }
 
   exportListToCSV() {
-    let fileContent = "data:text/csv;charset=utf-8,";
+    let fileContent = "";
+    let fileExtension = "";
     let headerRow = "";
+
+    if (this.dialogValues.selectedType == ".csv") {
+      fileContent = "data:text/csv;charset=utf-8,";
+      fileExtension = ".csv";
+    }
+
+    else {
+      fileContent = "data:text/charset=utf-8,";
+      fileExtension = ".txt";
+    }
 
     if (this.dialogValues.includeHeaders) {
       if (this.dialogValues.includeNdexno) {
@@ -301,7 +313,7 @@ export class AppComponent {
     n = n.slice(0, n.length - 3);
 
     link.setAttribute("href", encodedURI);
-    link.setAttribute("download", "results_" + n + ".csv");
+    link.setAttribute("download", "results_" + n + fileExtension);
 
     document.body.appendChild(link);
 
@@ -317,10 +329,116 @@ export class AppComponent {
       data: this.dialogValues
     });
 
+    dialogRef.backdropClick().subscribe(result => {
+      dialogRef.close(dialogRef.componentInstance.data);
+    });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result.isExporting) {
         this.exportListToCSV();
       }
+    });
+
+    dialogRef.componentInstance.clipboardUpdated.subscribe(() => {
+      let config = new MatSnackBarConfig();
+      let clipboardContent = "";
+      let headerRow = "";
+      
+      config.duration = 2000;
+
+      if (this.dialogValues.includeHeaders) {
+        if (this.dialogValues.includeNdexno) {
+          headerRow += "No.,"; 
+        }
+        if (this.dialogValues.includeName) {
+          headerRow += "Name,"; 
+        }
+        if (this.dialogValues.includeType1) {
+          headerRow += "Type 1,"; 
+        }
+        if (this.dialogValues.includeType2) {
+          headerRow += "Type 2,"; 
+        }
+        if (this.dialogValues.includeHP) {
+          headerRow += "HP,"; 
+        }
+        if (this.dialogValues.includeAttack) {
+          headerRow += "Attack,"; 
+        }
+        if (this.dialogValues.includeDefense) {
+          headerRow += "Defense,"; 
+        }
+        if (this.dialogValues.includeSpatk) {
+          headerRow += "Sp. Atk,"; 
+        }
+        if (this.dialogValues.includeSpdef) {
+          headerRow += "Sp. Def,"; 
+        }
+        if (this.dialogValues.includeSpeed) {
+          headerRow += "Speed,"; 
+        }
+        if (this.dialogValues.includeTotal) {
+          headerRow += "Total,"; 
+        }
+        if (this.dialogValues.includeGen) {
+          headerRow += "Gen,"; 
+        }
+  
+        headerRow = headerRow.substring(0, headerRow.length - 1);
+        headerRow += "\n";
+  
+        clipboardContent += headerRow;
+      }
+  
+      for (var p of this.pokemonList) 
+      {
+        let row = "";
+  
+        if (this.dialogValues.includeNdexno) {
+          row += p.ndexno + ","; 
+        }
+        if (this.dialogValues.includeName) {
+          row += p.name + ","; 
+        }
+        if (this.dialogValues.includeType1) {
+          row += p.type1 + ","; 
+        }
+        if (this.dialogValues.includeType2) {
+          row += (p.type2 == null ? "" : p.type2) + ","; 
+        }
+        if (this.dialogValues.includeHP) {
+          row += p.hp + ","; 
+        }
+        if (this.dialogValues.includeAttack) {
+          row += p.attack + ","; 
+        }
+        if (this.dialogValues.includeDefense) {
+          row += p.defense + ","; 
+        }
+        if (this.dialogValues.includeSpatk) {
+          row += p.spatk + ","; 
+        }
+        if (this.dialogValues.includeSpdef) {
+          row += p.spdef + ","; 
+        }
+        if (this.dialogValues.includeSpeed) {
+          row += p.speed + ","; 
+        }
+        if (this.dialogValues.includeTotal) {
+          row += p.total + ","; 
+        }
+        if (this.dialogValues.includeGen) {
+          row += p.gen + ","; 
+        }
+  
+        row = row.substring(0, row.length - 1);
+        row += "\n";
+  
+        clipboardContent += row;
+      }
+
+      navigator.clipboard.writeText(clipboardContent);
+      this.snackBar.open("List copied to clipboard!", "", config);
     });
   }
 }
@@ -330,13 +448,21 @@ export class AppComponent {
   templateUrl: 'dialog-export-list-dialog.html',
 })
 export class DialogExportListDialog {
+  @Output() clipboardUpdated = new EventEmitter<any>();
+  
   dialogValues = new DialogValues();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogValues) {
-    this.dialogValues = data;
+  constructor(@Inject(MAT_DIALOG_DATA) @Optional() public data: DialogValues) {
+    if (data) {
+      this.dialogValues = data;
+    }
   }
 
-  setExporting() {
-    this.dialogValues.isExporting = true;
+  setExporting(exportVal: boolean) {
+    this.dialogValues.isExporting = exportVal;
+  }
+
+  copyToClipboard() {
+    this.clipboardUpdated.emit();
   }
 }

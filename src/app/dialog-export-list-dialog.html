@@ -25,14 +25,21 @@
     <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeTotal">Total</mat-checkbox>
     <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeGen">Gen</mat-checkbox>
   </div>
-  <div mat-dialog-actions style="width: 100%; position: absolute; bottom: 0; overflow-y: hidden;">
-    <button mat-button mat-dialog-close style="position: absolute; left: 10px; bottom: 10px;">Close</button>
-    <button mat-button (click)="setExporting()" [mat-dialog-close]="dialogValues" style="padding-bottom: 2px; background-color: #3d55b3; color: white; position: absolute; right: 10px; bottom: 10px;">
-      Export&nbsp;
+  <div mat-dialog-actions style="width: 100%; overflow-y: hidden;">
+    <button mat-button (click)="setExporting(false)" [mat-dialog-close]="dialogValues">Close</button>
+    <button mat-button (click)="setExporting(true)" [mat-dialog-close]="dialogValues" style="position: absolute; right: 10px; padding-bottom: 2px; background-color: #3d55b3; color: white;">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
         <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
       </svg>
+      &nbsp;Export
+    </button>
+    <button mat-button (click)="copyToClipboard()" style="position: absolute; right: 160px; background-color: #e3e3e3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-fill" viewBox="0 0 16 16">
+        <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5h3Z"/>
+        <path d="M3.5 1h.585A1.498 1.498 0 0 0 4 1.5V2a1.5 1.5 0 0 0 1.5 1.5h5A1.5 1.5 0 0 0 12 2v-.5c0-.175-.03-.344-.085-.5h.585A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1Z"/>
+      </svg>
+      Copy to clipboard
     </button>
   </div>
 </div>
