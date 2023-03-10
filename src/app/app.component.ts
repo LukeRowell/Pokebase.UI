@@ -29,7 +29,8 @@ export class AppComponent {
 
   // Pie
   public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: false,
+    responsive: true,
+    maintainAspectRatio: false
   };
 
   public genChartDatasets = [{ data: [0] }];
@@ -345,6 +346,7 @@ export class AppComponent {
       let headerRow = "";
       
       config.duration = 2000;
+      config.panelClass = ['custom-class'];
 
       if (this.dialogValues.includeHeaders) {
         if (this.dialogValues.includeNdexno) {
@@ -449,7 +451,7 @@ export class AppComponent {
 })
 export class DialogExportListDialog {
   @Output() clipboardUpdated = new EventEmitter<any>();
-  
+
   dialogValues = new DialogValues();
 
   constructor(@Inject(MAT_DIALOG_DATA) @Optional() public data: DialogValues) {
