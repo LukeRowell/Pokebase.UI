@@ -3,7 +3,7 @@ import { Pokemon } from './models/pokemon';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ChartOptions } from 'chart.js';
+import { Chart, ChartOptions } from 'chart.js';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { DialogValues } from './models/DialogValues';
