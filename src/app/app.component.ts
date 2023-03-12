@@ -8,6 +8,9 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { DialogValues } from './models/DialogValues';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-root',
@@ -26,19 +29,60 @@ export class AppComponent {
   results = 0;
   resultsPercentage = "";
   dialogValues = new DialogValues();
+  offsetVal = 0;
+
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: 70
+    },
+    plugins: { 
+      legend: {
+        display: false,
+        position: 'top',
+      },
+      datalabels: {
+        align: "end",
+        anchor: "end",
+        offset: (context) => {
+          var index = context.dataIndex;
+          var value = context.dataset.data[index]!;
+
+          if (value <= 5) {
+            this.offsetVal = (this.offsetVal == 0 ? 20 : 0);
+          } 
+          else {
+            if (this.offsetVal == 20) {
+              this.offsetVal = 0;
+            }
+          }
+          
+          return this.offsetVal;
+        },
+        clip: false,
+        display: true,
+        formatter: (value, ctx) => {
+          if (ctx.chart.data.labels) {
+            return ctx.chart.data.labels[ctx.dataIndex];
+          }
+        },
+      },
+    }
+  };
 
   // Pie
-  public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
+  //public pieChartOptions: ChartOptions<'pie'> = {
+  //  responsive: true,
+  //  maintainAspectRatio: false
+  //};
 
   public genChartDatasets = [{ data: [0] }];
   public typeChartDatasets = [{ data: [0], backgroundColor: [''] }];
   public monoVsDualChartDatasets = [{ data: [0], backgroundColor: ['darkred', 'darkgreen'] }];
   public totalChartDatasets = [{ data: [0] }];
   public pieChartLegend = false;
-  public pieChartPlugins = [];
+  public pieChartPlugins = [ DatalabelsPlugin ];
   public genChartLabels = [['']];
   public typeChartLabels = [['']];
   public monoVsDualChartLabels = [['']];
