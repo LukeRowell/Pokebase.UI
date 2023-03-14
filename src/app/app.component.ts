@@ -160,7 +160,6 @@ export class AppComponent {
     this.typeChartDatasets[0].data = [];
     this.monoVsDualChartDatasets[0].data = [];
     this.totalChartDatasets[0].data = [];
-    let i = 0;
     let genDataArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     let typeDict: { [type: string]: [number, string]} = 
                     {'Bug': [0, '#AABB22'], 'Dark': [0, '#705848'], 'Dragon': [0, '#7766EE'], 'Electric': [0, '#FFCC33'],
@@ -169,7 +168,14 @@ export class AppComponent {
                      'Normal': [0, '#AAAA99'], 'Poison': [0, '#AA5599'], 'Psychic': [0, '#FF5599'], 'Rock': [0, '#BBAA66'],
                      'Steel': [0, '#AAAABB'], 'Water': [0, '#3399FF'], 'None': [0, 'black']
                     };
-    let totalDict: { [statRange: string]: number } = {'0 - 99': 0, '100 - 199': 0, '200 - 299': 0, '300 - 399': 0, '400 - 499': 0, '500 - 599': 0, '600 - 699': 0, '700 - 799': 0};
+    let totalDict: { [statRange: string]: number } = {'0 - 99': 0, 
+                                                      '100 - 199': 0, 
+                                                      '200 - 299': 0, 
+                                                      '300 - 399': 0, 
+                                                      '400 - 499': 0, 
+                                                      '500 - 599': 0, 
+                                                      '600 - 699': 0, 
+                                                      '700 - 799': 0};
 
     for (var p of pokemon) {
       p.spritePath = "/assets/sprites/" + p.gen.toString() + "/" + p.name.toLowerCase().replace(': ', '-') + ".png";
@@ -218,7 +224,6 @@ export class AppComponent {
         this.typeChartLabels.push([key, typeDict[key][0].toString()]);
         this.typeChartDatasets[0].backgroundColor.push(typeDict[key][1]);
       }
-      i++;
     }
 
     this.monoVsDualChartDatasets[0].data.push(typeDict['None'][0]);
