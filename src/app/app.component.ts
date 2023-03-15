@@ -62,6 +62,7 @@ export class AppComponent {
         },
         clip: false,
         display: true,
+        color: "black",
         formatter: (value, ctx) => {
           if (ctx.chart.data.labels) {
             return ctx.chart.data.labels[ctx.dataIndex];
@@ -221,7 +222,8 @@ export class AppComponent {
     for (let key in typeDict) {
       if (key != 'None' && typeDict[key][0] > 0) {
         this.typeChartDatasets[0].data.push(typeDict[key][0]);
-        this.typeChartLabels.push([key, typeDict[key][0].toString()]);
+        //this.typeChartLabels.push([key, typeDict[key][0].toString()]);
+        this.typeChartLabels.push([key]);
         this.typeChartDatasets[0].backgroundColor.push(typeDict[key][1]);
       }
     }
