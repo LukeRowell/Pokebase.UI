@@ -1,16 +1,15 @@
-import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Optional } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Optional, ViewEncapsulation } from '@angular/core';
 import { Pokemon } from './models/pokemon';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Chart, ChartOptions } from 'chart.js';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { DialogValues } from './models/DialogValues';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ChartConfiguration } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
-import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +29,8 @@ export class AppComponent {
   resultsPercentage = "";
   dialogValues = new DialogValues();
   offsetVal = 0;
+  selected = new FormControl(0);
+  initialQuery = true;
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -72,12 +73,6 @@ export class AppComponent {
     }
   };
 
-  // Pie
-  //public pieChartOptions: ChartOptions<'pie'> = {
-  //  responsive: true,
-  //  maintainAspectRatio: false
-  //};
-
   public genChartDatasets = [{ data: [0] }];
   public typeChartDatasets = [{ data: [0], backgroundColor: [''] }];
   public monoVsDualChartDatasets = [{ data: [0], backgroundColor: ['darkred', 'darkgreen'] }];
@@ -91,7 +86,9 @@ export class AppComponent {
 
   constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
-  ngOnInit() : void { }
+  ngOnInit() : void { 
+    this.selected.setValue(0);
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -238,6 +235,13 @@ export class AppComponent {
         this.totalChartLabels.push([key]);
       }
     }
+
+    if (!this.initialQuery) {
+      this.selected.setValue(1);
+    }
+    else {
+      this.initialQuery = false;
+    }
   }
 
   //When a pokemon is searched, clear the list and add the new pokemon
@@ -377,6 +381,7 @@ export class AppComponent {
       width: '33%',
       height: '35%',
       maxWidth: '500px',
+      minHeight: '400px',
       panelClass: 'custom-modal',
       data: this.dialogValues
     });

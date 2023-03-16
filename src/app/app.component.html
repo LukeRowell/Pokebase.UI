@@ -74,17 +74,20 @@
     </table>
   </div>
   <div class="three">
-    <mat-tab-group animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
+    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
       <mat-tab label="Selection Criteria">
-        <app-query-pokemon
-          (tableUpdated)="updatePokemonListFromQuery($event)"
-        ></app-query-pokemon>
+        <div class="selectionContent">
+          <app-query-pokemon
+            (tableUpdated)="updatePokemonListFromQuery($event)"
+          ></app-query-pokemon>
+        </div>
       </mat-tab>
       <mat-tab label="Results & Charts">
         <div class="resultsContent">
           <div class="resultsArea">
             <div class="resultsText">
-              <h1>Results: {{results}} ({{resultsPercentage}}% of all Pokémon)</h1>
+              <h1>Results: {{results}}</h1>
+              <h2>({{resultsPercentage}}% of all Pokémon)</h2>
             </div>
             <div class="exportArea">
               <button class="exportButton" (click)="openDialog()">
@@ -98,7 +101,7 @@
           </div>
           <div class="resultsCharts">
             <mat-tab-group animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
-              <mat-tab label="Generation">
+              <mat-tab label="Generation" >
                 <div class="chart">
                   <canvas baseChart
                     [type]="'pie'"

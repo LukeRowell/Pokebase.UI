@@ -166,6 +166,16 @@ img {
     height: 100%;
 }
 
+.selectionContent {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: lightblue;
+}
+
 .resultsContent {
     display: grid;
     grid-template-columns: 1fr;
@@ -181,13 +191,15 @@ img {
     max-width: 100%;
     height: 96%;
     max-height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
     background-color: lightblue;
     border: 2px solid gray;
     border-radius: 5px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .resultsCharts {
@@ -204,16 +216,26 @@ img {
 }
 
 .resultsText {
-    grid-row: 2;
-    grid-column: 1;
     color: #ffcb05;
     text-align: center;
     text-shadow: 2px 0 0 #3c5aa6, 0 -2px 0 #3c5aa6, 0 2px 0 #3c5aa6, -2px 0 0 #3c5aa6;
 }
 
+.resultsText h1 {
+    margin-top: 1%;
+    font-size: 3vw;
+}
+
+.resultsText h2 {
+    margin-top: 3%;
+    font-size: 1.5vw;
+}
+
 .exportArea {
-    grid-row: 2;
-    grid-column: 2;
+    margin: 0;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 canvas {
@@ -231,8 +253,6 @@ canvas {
     color: white;
     text-align: center;
     cursor: pointer;
-    float: right;
-    margin-right: 5%;
 }
 
 @media (min-height: 1000px) {
@@ -241,3 +261,13 @@ canvas {
         height: 800px;
     }
 }
+
+.Generation {
+    background-color: red !important;
+}
+
+:host ::ng-deep .mat-tab-label-active {
+    border-width: 9px !important;
+    border-style: solid !important;
+    border-color: orange !important;
+  }
