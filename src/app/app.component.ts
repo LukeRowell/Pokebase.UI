@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Optional, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Optional } from '@angular/core';
 import { Pokemon } from './models/pokemon';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
@@ -35,6 +35,14 @@ export class AppComponent {
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
+    elements: {
+      arc: {
+        borderWidth: 5,
+        borderColor: 'lightblue',
+        borderRadius: 5,
+        borderJoinStyle: 'round'
+      }
+    },
     layout: {
       padding: 70
     },
