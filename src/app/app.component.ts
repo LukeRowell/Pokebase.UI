@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ChartConfiguration } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FormControl } from '@angular/forms';
+import { _MatRadioButtonBase } from '@angular/material/radio';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,7 @@ export class AppComponent {
     animation: false,
     elements: {
       arc: {
-        borderWidth: 5,
+        borderWidth: 5,   //TODO: Change to be a function that hides line when there is only one slice
         borderColor: 'lightblue',
         borderRadius: 5,
         borderJoinStyle: 'round'
@@ -164,6 +165,7 @@ export class AppComponent {
   chartClicked(event: any) {
     let sliceList: Pokemon[] = [];
     let index = parseInt(event.active[0].index);
+    let buttonText = "";
 
     switch (this.selectedChart.value) {
       case 0:
@@ -172,16 +174,19 @@ export class AppComponent {
             sliceList.push(p);
           }
         }
+
+        buttonText = this.genChartLabels[index][0];
         break;
       case 1:
         let typeName = this.typeChartLabels[index][0];
-        
+
         for (var p of this.pokemonList) {
           if (p.type1 == typeName || p.type2 == typeName) {
             sliceList.push(p);
           }
         }
 
+        buttonText = this.typeChartLabels[index][0];
         break;
       case 2:
         for (var p of this.pokemonList) {
@@ -193,6 +198,7 @@ export class AppComponent {
           }
         }
 
+        buttonText = this.monoVsDualChartLabels[index][0];
         break;
       case 3:
         let label = this.totalChartLabels[index][0];
@@ -204,13 +210,39 @@ export class AppComponent {
             sliceList.push(p);
           }
         }
-        
+
+        buttonText = this.totalChartLabels[index][0];
         break;
       default:
         break;
     }
 
     this.updatePokemonListFromQuery(sliceList);
+    this.addItem(buttonText);
+  }
+
+  addItem(buttonText: string) {
+    var activity = document.getElementById("chartStack")!;
+    var button = document.createElement('button');
+    var arrowText = document.createElement('h2');
+
+    button.type = 'button';
+    button.innerHTML = buttonText;
+    button.style.position = "relative";
+    button.style.height = "45%";
+
+    arrowText.textContent = '==>';
+    arrowText.style.position = "relative";
+    arrowText.style.top = "14%";
+    arrowText.style.marginLeft = "1%";
+    arrowText.style.marginRight = "1%";
+
+    activity.append(arrowText);
+    activity.append(button);
+
+    /*
+    activity.innerHTML += `<button class="stackItem" (click)="addItem()">Hello there</button>`;
+    */
   }
 
   updatePokemonListFromQuery(pokemon: Pokemon[]) {

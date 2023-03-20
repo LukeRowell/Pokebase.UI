@@ -102,7 +102,7 @@
           </div>
           <div class="resultsCharts">
             <mat-tab-group [selectedIndex]="selectedChart.value" (selectedIndexChange)="selectedChart.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
-              <mat-tab label="Generation" >
+              <mat-tab label="Generation">
                 <div class="chart">
                   <canvas *ngIf="this.doneLoading" baseChart id="gen"
                     [type]="'pie'"
@@ -171,5 +171,10 @@
       >
       </mat-spinner>
     </div>
+  </div>
+  <div class="chartStack" id="chartStack" *ngIf="true">
+    <button class="stackItem">
+      Main List
+    </button>&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 </div>
