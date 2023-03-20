@@ -8,10 +8,10 @@
     </div>
   </div>
   <div class="two">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
+    <table mat-table id="pokemonTable" [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortData($event)">
       <ng-container matColumnDef="spritePath">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          <a href="https://bulbapedia.bulbagarden.net/wiki/Main_Page">
+          <a href="https://bulbapedia.bulbagarden.net/wiki/Main_Page" target="_blank" rel="noopener noreferrer">
             <img class="bulba_icon" src="/assets/bulbapedia_favicon.ico">
           </a> 
         </th>
@@ -69,15 +69,16 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Gen</th>
         <td mat-cell *matCellDef="let pokemon"> {{pokemon.gen}} </td>
       </ng-container>
-      <tr mat-header-row style="background-color: #e3e3e3" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr class="headerRow" mat-header-row style="background-color: #e3e3e3" *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let pokemon; columns: displayedColumns;"></tr>
     </table>
   </div>
   <div class="three">
-    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
+    <mat-tab-group [selectedIndex]="selectedView.value" (selectedIndexChange)="selectedView.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
       <mat-tab label="Selection Criteria">
         <div class="selectionContent">
           <app-query-pokemon
+            (viewSwapped)="this.selectedView.setValue($event); this.doneLoading = false"
             (tableUpdated)="updatePokemonListFromQuery($event)"
           ></app-query-pokemon>
         </div>
@@ -100,55 +101,59 @@
             </div>
           </div>
           <div class="resultsCharts">
-            <mat-tab-group animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
+            <mat-tab-group [selectedIndex]="selectedChart.value" (selectedIndexChange)="selectedChart.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
               <mat-tab label="Generation" >
                 <div class="chart">
-                  <canvas baseChart
+                  <canvas *ngIf="this.doneLoading" baseChart id="gen"
                     [type]="'pie'"
                     [datasets]="genChartDatasets"
                     [labels]="genChartLabels"
                     [options]="pieChartOptions"
                     [plugins]="pieChartPlugins"
                     [legend]="pieChartLegend"
+                    (chartClick)="chartClicked($event)"
                   >
                   </canvas>
                 </div>
               </mat-tab>
               <mat-tab label="Type">
                 <div class="chart">
-                  <canvas baseChart 
+                  <canvas baseChart id="type"
                     [type]="'pie'"
                     [datasets]="typeChartDatasets"
                     [labels]="typeChartLabels"
                     [options]="pieChartOptions"
                     [plugins]="pieChartPlugins"
                     [legend]="pieChartLegend"
+                    (chartClick)="chartClicked($event)"
                   >
                   </canvas>
                 </div>
               </mat-tab>
               <mat-tab label="Mono-type vs. Dual-type">
                 <div class="chart">
-                  <canvas baseChart
+                  <canvas baseChart id="monovsdual"
                     [type]="'pie'"
                     [datasets]="monoVsDualChartDatasets"
                     [labels]="monoVsDualChartLabels"
                     [options]="pieChartOptions"
                     [plugins]="pieChartPlugins"
                     [legend]="pieChartLegend"
+                    (chartClick)="chartClicked($event)"
                   >
                   </canvas>
                 </div>
               </mat-tab>
               <mat-tab label="Total">
                 <div class="chart">
-                  <canvas baseChart
+                  <canvas baseChart id="total"
                     [type]="'pie'"
                     [datasets]="totalChartDatasets"
                     [labels]="totalChartLabels"
                     [options]="pieChartOptions"
                     [plugins]="pieChartPlugins"
                     [legend]="pieChartLegend"
+                    (chartClick)="chartClicked($event)"
                   >
                   </canvas>
                 </div>
@@ -158,5 +163,13 @@
         </div>
       </mat-tab>
     </mat-tab-group>
+  </div>
+  <div class="spinnerContainer" *ngIf="!this.doneLoading">
+    <div class="loadingSpinner">
+      <mat-spinner 
+        [diameter]="150"
+      >
+      </mat-spinner>
+    </div>
   </div>
 </div>

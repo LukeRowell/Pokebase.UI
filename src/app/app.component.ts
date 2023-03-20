@@ -29,12 +29,15 @@ export class AppComponent {
   resultsPercentage = "";
   dialogValues = new DialogValues();
   offsetVal = 0;
-  selected = new FormControl(0);
+  selectedView = new FormControl(0);
+  selectedChart = new FormControl(1);
   initialQuery = true;
+  doneLoading = true;
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: false,
     elements: {
       arc: {
         borderWidth: 5,
@@ -95,11 +98,16 @@ export class AppComponent {
   constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() : void { 
-    this.selected.setValue(0);
+    this.selectedView.setValue(0);
+    this.selectedChart.setValue(0);
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnChanges() {
+    console.log('changed');
   }
 
   sortData(sort: Sort) {
@@ -153,7 +161,61 @@ export class AppComponent {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+  chartClicked(event: any) {
+    let sliceList: Pokemon[] = [];
+    let index = parseInt(event.active[0].index);
+
+    switch (this.selectedChart.value) {
+      case 0:
+        for (var p of this.pokemonList) {
+          if (p.gen == index + 1) {
+            sliceList.push(p);
+          }
+        }
+        break;
+      case 1:
+        let typeName = this.typeChartLabels[index][0];
+        
+        for (var p of this.pokemonList) {
+          if (p.type1 == typeName || p.type2 == typeName) {
+            sliceList.push(p);
+          }
+        }
+
+        break;
+      case 2:
+        for (var p of this.pokemonList) {
+          if (index == 0 && p.type2 == undefined) {
+            sliceList.push(p);
+          }
+          else if (index == 1 && p.type2 != undefined) {
+            sliceList.push(p);
+          }
+        }
+
+        break;
+      case 3:
+        let label = this.totalChartLabels[index][0];
+        let lowerBound = parseInt(label.slice(0, 3));
+        let upperBound = parseInt(label.slice(label.length - 3));
+
+        for (var p of this.pokemonList) {
+          if (p.total >= lowerBound && p.total <= upperBound) {
+            sliceList.push(p);
+          }
+        }
+        
+        break;
+      default:
+        break;
+    }
+
+    this.updatePokemonListFromQuery(sliceList);
+  }
+
   updatePokemonListFromQuery(pokemon: Pokemon[]) {
+    this.doneLoading = false;
+
     this.pokemonList = pokemon;
     this.dataSource = new MatTableDataSource(this.pokemonList);
     this.results = this.pokemonList.length;
@@ -244,12 +306,8 @@ export class AppComponent {
       }
     }
 
-    if (!this.initialQuery) {
-      this.selected.setValue(1);
-    }
-    else {
-      this.initialQuery = false;
-    }
+    this.doneLoading = true;
+    console.log('end of update');
   }
 
   //When a pokemon is searched, clear the list and add the new pokemon

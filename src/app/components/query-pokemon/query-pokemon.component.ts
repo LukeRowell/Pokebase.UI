@@ -10,6 +10,8 @@ import { SearchValues } from 'src/app/models/SearchValues';
 })
 export class QueryPokemonComponent {
   @Output() tableUpdated = new EventEmitter<Pokemon[]>();
+  @Output() viewSwapped = new EventEmitter<any>();
+
   searchValues = new SearchValues();
   test = 1;
 
@@ -17,6 +19,8 @@ export class QueryPokemonComponent {
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
+    this.viewSwapped.emit(0);
+
     this.searchValues.type1 = 'Any';
     this.searchValues.type2 = 'Any';
     this.searchValues.genFrom = 1;
@@ -32,6 +36,8 @@ export class QueryPokemonComponent {
   }
 
   queryPokemon() {
+    this.viewSwapped.emit(1);
+
     this.pokemonService
       .getPokemon(this.searchValues)
       .subscribe((pokemon: Pokemon[]) => this.tableUpdated.emit(pokemon));
