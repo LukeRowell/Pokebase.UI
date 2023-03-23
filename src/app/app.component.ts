@@ -22,6 +22,7 @@ export class AppComponent {
 
   title = 'Pokebase.UI';
   pokemonList: Pokemon[] = [];
+  sliceListStack: Pokemon[][] = [];
   pokemonToFind?: Pokemon;
   searchValues = new SearchValues();
   displayedColumns: string[] = ['spritePath', 'ndexno', 'name', 'type1', 'type2', 'hp', 'attack', 'defense', 'spatk', 'spdef', 'speed', 'total', 'gen'];
@@ -32,8 +33,8 @@ export class AppComponent {
   offsetVal = 0;
   selectedView = new FormControl(0);
   selectedChart = new FormControl(1);
-  initialQuery = true;
   doneLoading = true;
+  clearStack = true;
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -169,8 +170,11 @@ export class AppComponent {
 
     switch (this.selectedChart.value) {
       case 0:
+        let genLabel = this.genChartLabels[index][0];
+        let genValue = parseInt(genLabel[genLabel.length - 1]);
+
         for (var p of this.pokemonList) {
-          if (p.gen == index + 1) {
+          if (p.gen == genValue) {
             sliceList.push(p);
           }
         }
@@ -201,9 +205,9 @@ export class AppComponent {
         buttonText = this.monoVsDualChartLabels[index][0];
         break;
       case 3:
-        let label = this.totalChartLabels[index][0];
-        let lowerBound = parseInt(label.slice(0, 3));
-        let upperBound = parseInt(label.slice(label.length - 3));
+        let statLabel = this.totalChartLabels[index][0];
+        let lowerBound = parseInt(statLabel.slice(0, 3));
+        let upperBound = parseInt(statLabel.slice(statLabel.length - 3));
 
         for (var p of this.pokemonList) {
           if (p.total >= lowerBound && p.total <= upperBound) {
@@ -217,8 +221,25 @@ export class AppComponent {
         break;
     }
 
+    this.clearStack = false;
+    console.log(this.sliceListStack);
+    this.sliceListStack.push(this.pokemonList);
     this.updatePokemonListFromQuery(sliceList);
     this.addItem(buttonText);
+  }
+
+  popSlice = () => {
+    this.doneLoading = false;
+    console.log(this.sliceListStack);
+
+    if (this.sliceListStack.length == 1) {
+      return;
+    }
+
+    this.sliceListStack.pop();
+    this.clearStack = false;
+    this.updatePokemonListFromQuery(this.sliceListStack[this.sliceListStack.length - 1]);
+    this.doneLoading = true;
   }
 
   addItem(buttonText: string) {
@@ -228,31 +249,38 @@ export class AppComponent {
     var svg = document.createElement('svg');
 
     svg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-  </svg>`;
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>`;
 
     button.type = 'button';
     button.innerHTML = buttonText;
     button.style.position = "relative";
-    button.style.height = "45%";
+    //button.style.height = "45%";
+    button.style.borderRadius = "5px";
+    button.style.cursor = "pointer";
+    button.onclick = this.popSlice;
+
+    svg.style.position = "relative";
+    svg.style.top = "8%";
+    svg.style.marginLeft = "0.5%";
+    svg.style.marginRight = "0.5%";
 
     arrowText.textContent = '==>';
     arrowText.style.position = "relative";
-    arrowText.style.top = "14%";
+    arrowText.style.top = "20%";
     arrowText.style.marginLeft = "1%";
     arrowText.style.marginRight = "1%";
 
     activity.append(svg);
-    //activity.append(arrowText);
     activity.append(button);
-
-    /*
-    activity.innerHTML += `<button class="stackItem" (click)="addItem()">Hello there</button>`;
-    */
   }
 
   updatePokemonListFromQuery(pokemon: Pokemon[]) {
     this.doneLoading = false;
+
+    if (this.clearStack && this.sliceListStack.length != 1) {
+      this.sliceListStack = [];
+    }
 
     this.pokemonList = pokemon;
     this.dataSource = new MatTableDataSource(this.pokemonList);
@@ -327,7 +355,6 @@ export class AppComponent {
     for (let key in typeDict) {
       if (key != 'None' && typeDict[key][0] > 0) {
         this.typeChartDatasets[0].data.push(typeDict[key][0]);
-        //this.typeChartLabels.push([key, typeDict[key][0].toString()]);
         this.typeChartLabels.push([key]);
         this.typeChartDatasets[0].backgroundColor.push(typeDict[key][1]);
       }
@@ -344,8 +371,8 @@ export class AppComponent {
       }
     }
 
+    this.clearStack = true;
     this.doneLoading = true;
-    console.log('end of update');
   }
 
   //When a pokemon is searched, clear the list and add the new pokemon
