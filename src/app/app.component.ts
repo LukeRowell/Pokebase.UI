@@ -232,20 +232,17 @@ export class AppComponent {
     this.doneLoading = false;
     console.log(this.sliceListStack);
 
-    if (this.sliceListStack.length == 1) {
-      return;
+    if (this.sliceListStack.length > 1) {
+      this.sliceListStack.pop();
+      this.clearStack = false;
+      this.updatePokemonListFromQuery(this.sliceListStack[this.sliceListStack.length - 1]);
+      this.doneLoading = true;
     }
-
-    this.sliceListStack.pop();
-    this.clearStack = false;
-    this.updatePokemonListFromQuery(this.sliceListStack[this.sliceListStack.length - 1]);
-    this.doneLoading = true;
   }
 
   addItem(buttonText: string) {
     var activity = document.getElementById("chartStack")!;
     var button = document.createElement('button');
-    var arrowText = document.createElement('h2');
     var svg = document.createElement('svg');
 
     svg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
@@ -264,12 +261,6 @@ export class AppComponent {
     svg.style.top = "8%";
     svg.style.marginLeft = "0.5%";
     svg.style.marginRight = "0.5%";
-
-    arrowText.textContent = '==>';
-    arrowText.style.position = "relative";
-    arrowText.style.top = "20%";
-    arrowText.style.marginLeft = "1%";
-    arrowText.style.marginRight = "1%";
 
     activity.append(svg);
     activity.append(button);
