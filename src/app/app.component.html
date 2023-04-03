@@ -74,11 +74,11 @@
     </table>
   </div>
   <div class="three">
-    <mat-tab-group [selectedIndex]="selectedView.value" (selectedIndexChange)="selectedView.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
-      <mat-tab label="Selection Criteria">
+    <mat-tab-group [selectedIndex]="selectedView.value" (selectedIndexChange)="selectedView.setValue($event); this.appendListItems($event)" animationDuration="0ms" style="overflow-y: hidden; height: 100%; background-color: #e3e3e3;">
+      <mat-tab label="Selection Criteria" style="height: 100%">
         <div class="selectionContent">
           <app-query-pokemon
-            (viewSwapped)="this.selectedView.setValue($event); this.doneLoading = false"
+            (viewSwapped)="this.selectedView.setValue($event); this.doneLoading = false;"
             (tableUpdated)="updatePokemonListFromQuery($event)"
           ></app-query-pokemon>
         </div>
@@ -101,7 +101,7 @@
             </div>
           </div>
           <div class="resultsCharts">
-            <mat-tab-group [selectedIndex]="selectedChart.value" (selectedIndexChange)="selectedChart.setValue($event)" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
+            <mat-tab-group [selectedIndex]="selectedChart.value" (selectedIndexChange)="selectedChart.setValue($event);" animationDuration="0ms" style="height: 100%; background-color: #e3e3e3;">
               <mat-tab label="Generation">
                 <div class="chart">
                   <canvas *ngIf="this.doneLoading" baseChart id="gen"
@@ -173,8 +173,5 @@
     </div>
   </div>
   <div class="chartStack" id="chartStack" *ngIf="this.selectedView.value == 1">
-    <button class="stackItem">
-      Main List
-    </button>
   </div>
 </div>

@@ -11,6 +11,7 @@ import { ChartConfiguration } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FormControl } from '@angular/forms';
 import { _MatRadioButtonBase } from '@angular/material/radio';
+import { StackItem } from './models/StackItem';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +36,7 @@ export class AppComponent {
   selectedChart = new FormControl(1);
   doneLoading = true;
   clearStack = true;
+  listStack: StackItem[] = [];
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -163,7 +165,30 @@ export class AppComponent {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+
+  popItem = (name: string) => {
+    var activity = document.getElementById("chartStack")!;
+
+    for (let i = this.listStack.length - 1; i >= 0; i--) {
+      if (this.listStack[i].button.innerHTML.toString() == name) {
+        console.log('break');
+        break;
+      }
+
+      console.log('removing');
+      activity.removeChild(this.listStack[i].arrow);
+      activity.removeChild(this.listStack[i].button);
+      this.listStack.pop();
+    }
+
+    console.log(this.listStack.length);
+    this.clearStack = false;
+    this.updatePokemonListFromQuery(this.listStack[this.listStack.length - 1].pokemonList);
+  }
+
+
   chartClicked(event: any) {
+    var activity = document.getElementById("chartStack")!;
     let sliceList: Pokemon[] = [];
     let index = parseInt(event.active[0].index);
     let buttonText = "";
@@ -222,26 +247,53 @@ export class AppComponent {
     }
 
     this.clearStack = false;
-    console.log(this.sliceListStack);
-    this.sliceListStack.push(this.pokemonList);
+    //console.log(this.sliceListStack);
+    //this.sliceListStack.push(this.pokemonList);
+    
+    var button = document.createElement('button');
+
+    button.type = 'button';
+    button.innerHTML = buttonText;
+    button.style.position = "relative";
+    button.style.borderRadius = "5px";
+    button.style.cursor = "pointer";
+    button.onclick = () => {
+      this.popItem(button.innerHTML.toString());
+    };
+
+    let newItem = new StackItem(sliceList, button);
+
+    newItem.pokemonList = sliceList;
+    this.listStack.push(newItem);
+
+    //console.log('new item');
+    //console.log(newItem);
+
     this.updatePokemonListFromQuery(sliceList);
-    this.addItem(buttonText);
+    activity.appendChild(newItem.arrow);
+    activity.appendChild(newItem.button);
   }
 
-  popSlice = () => {
-    this.doneLoading = false;
-    console.log(this.sliceListStack);
+  appendListItems(event: any) {
+    if (event == 1) {
+      console.log('appendListItems');
+      console.log(this.listStack);
 
-    if (this.sliceListStack.length > 1) {
-      this.sliceListStack.pop();
-      this.clearStack = false;
-      this.updatePokemonListFromQuery(this.sliceListStack[this.sliceListStack.length - 1]);
-      this.doneLoading = true;
+      var activity = document.getElementById("chartStack")!;
+
+      for (let i = 0; i < this.listStack.length; i++) {
+        if (i > 0) {
+          activity.appendChild(this.listStack[i].arrow);
+        }
+        activity.appendChild(this.listStack[i].button);
+      }
     }
   }
 
   addItem(buttonText: string) {
     var activity = document.getElementById("chartStack")!;
+
+    /*
     var button = document.createElement('button');
     var svg = document.createElement('svg');
 
@@ -261,16 +313,14 @@ export class AppComponent {
     svg.style.top = "8%";
     svg.style.marginLeft = "0.5%";
     svg.style.marginRight = "0.5%";
-
-    activity.append(svg);
-    activity.append(button);
+    */
   }
 
   updatePokemonListFromQuery(pokemon: Pokemon[]) {
     this.doneLoading = false;
 
-    if (this.clearStack && this.sliceListStack.length != 1) {
-      this.sliceListStack = [];
+    if (this.clearStack) {
+      this.listStack = [];
     }
 
     this.pokemonList = pokemon;
@@ -360,6 +410,22 @@ export class AppComponent {
         this.totalChartDatasets[0].data.push(totalDict[key]);
         this.totalChartLabels.push([key]);
       }
+    }
+
+    if (this.clearStack) {
+      var button = document.createElement('button');
+
+      button.type = 'button';
+      button.innerHTML = `Main List`;
+      button.style.position = "relative";
+      button.style.borderRadius = "5px";
+      button.style.cursor = "pointer";
+      button.onclick = () => {
+        this.popItem(button.innerHTML.toString());
+      };
+
+      let newItem = new StackItem(pokemon, button);
+      this.listStack.push(newItem);
     }
 
     this.clearStack = true;

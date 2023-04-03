@@ -51,6 +51,20 @@ export class QueryPokemonComponent {
     this.searchValues.genThru = parseInt(event.target.ariaValueText);
   }
 
+  updateType(elem: HTMLElement) {
+    var buttonGroup = elem.classList.contains('group1') ? document.getElementsByClassName('group1') : document.getElementsByClassName('group2');
+
+    for (let i = 0; i < buttonGroup.length; i++) {
+      if (buttonGroup[i].classList.contains('selected')) {
+        buttonGroup[i].classList.remove('selected');
+        break;
+      }
+    }
+    
+    elem.classList.add('selected');
+    elem.classList.contains('group1') ? this.searchValues.type1 = elem.classList[0] : this.searchValues.type2 = elem.classList[0];
+  }
+
   log() {
     console.log(this.searchValues.genFrom);
     console.log(this.searchValues.genThru);

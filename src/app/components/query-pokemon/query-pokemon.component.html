@@ -1,115 +1,94 @@
+
 <div class="queryDiv">
     <div class="buttonSet1">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Type 1
-              </mat-panel-title>
-              <mat-panel-description>
-                Click here to choose type 1
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <table>
-                <tr>
-                    <td><button class="buttonAny typeButton" (click)="searchValues.type1='Any'">Any</button></td>
-                    <td><button class="buttonNone typeButton" (click)="searchValues.type1='None'">None</button></td>
-                    <td><button class="buttonBug typeButton" (click)="searchValues.type1='Bug'">Bug</button></td>
-                    <td><button class="buttonDark typeButton" (click)="searchValues.type1='Dark'">Dark</button></td>
-                    <td><button class="buttonDragon typeButton" (click)="searchValues.type1='Dragon'">Dragon</button></td>
-                </tr>
-                <tr>
-                    <td><button class="buttonElectric typeButton" (click)="searchValues.type1='Electric'">Electric</button></td>
-                    <td><button class="buttonFairy typeButton" (click)="searchValues.type1='Fairy'">Fairy</button></td>
-                    <td><button class="buttonFighting typeButton" (click)="searchValues.type1='Fighting'">Fighting</button></td>
-                    <td><button class="buttonFire typeButton" (click)="searchValues.type1='Fire'">Fire</button></td>
-                    <td><button class="buttonFlying typeButton" (click)="searchValues.type1='Flying'">Flying</button></td>
-                </tr>
-                <tr>
-                    <td><button class="buttonGhost typeButton" (click)="searchValues.type1='Ghost'">Ghost</button></td>
-                    <td><button class="buttonGrass typeButton" (click)="searchValues.type1='Grass'">Grass</button></td>
-                    <td><button class="buttonGround typeButton" (click)="searchValues.type1='Ground'">Ground</button></td>
-                    <td><button class="buttonIce typeButton" (click)="searchValues.type1='Ice'">Ice</button></td>
-                    <td><button class="buttonNormal typeButton" (click)="searchValues.type1='Normal'">Normal</button></td>
-                </tr>
-                <tr>
-                    <td><button class="buttonPoison typeButton" (click)="searchValues.type1='Poison'">Poison</button></td>
-                    <td><button class="buttonPsychic typeButton" (click)="searchValues.type1='Psychic'">Psychic</button></td>
-                    <td><button class="buttonRock typeButton" (click)="searchValues.type1='Rock'">Rock</button></td>
-                    <td><button class="buttonSteel typeButton" (click)="searchValues.type1='Steel'">Steel</button></td>
-                    <td><button class="buttonWater typeButton" (click)="searchValues.type1='Water'">Water</button></td>
-                </tr>
-            </table>
-        </mat-expansion-panel>
+        <h1>Type 1:&nbsp;&nbsp;
+            <button class="{{searchValues.type1}}">{{searchValues.type1}}</button>
+        </h1>
+        <hr style="border: 1px solid #3d55b3; width: 50%;">
+        <table>
+            <tr>
+                <td><button #tbAny class="Any typeButton group1 selected" (click)="updateType(tbAny)">Any</button></td>
+                <td><button #tbNone class="None typeButton group1" (click)="updateType(tbNone)">None</button></td>
+                <td><button #tbBug class="Bug typeButton group1" (click)="updateType(tbBug)">Bug</button></td>
+                <td><button #tbDark class="Dark typeButton group1" (click)="updateType(tbDark)">Dark</button></td>
+                <td><button #tbDragon class="Dragon typeButton group1" (click)="updateType(tbDragon)">Dragon</button></td>
+            </tr>
+            <tr>
+                <td><button #tbElectric class="Electric typeButton group1" (click)="updateType(tbElectric)">Electric</button></td>
+                <td><button #tbFairy class="Fairy typeButton group1" (click)="updateType(tbFairy)">Fairy</button></td>
+                <td><button #tbFighting class="Fighting typeButton group1" (click)="updateType(tbFighting)">Fighting</button></td>
+                <td><button #tbFire class="Fire typeButton group1" (click)="updateType(tbFire)">Fire</button></td>
+                <td><button #tbFlying class="Flying typeButton group1" (click)="updateType(tbFlying)">Flying</button></td>
+            </tr>
+            <tr>
+                <td><button #tbGhost class="Ghost typeButton group1" (click)="updateType(tbGhost)">Ghost</button></td>
+                <td><button #tbGrass class="Grass typeButton group1" (click)="updateType(tbGrass)">Grass</button></td>
+                <td><button #tbGround class="Ground typeButton group1" (click)="updateType(tbGround)">Ground</button></td>
+                <td><button #tbIce class="Ice typeButton group1" (click)="updateType(tbIce)">Ice</button></td>
+                <td><button #tbNormal class="Normal typeButton group1" (click)="updateType(tbNormal)">Normal</button></td>
+            </tr>
+            <tr>
+                <td><button #tbPoison class="Poison typeButton group1" (click)="updateType(tbPoison)">Poison</button></td>
+                <td><button #tbPsychic class="Psychic typeButton group1" (click)="updateType(tbPsychic)">Psychic</button></td>
+                <td><button #tbRock class="Rock typeButton group1" (click)="updateType(tbRock)">Rock</button></td>
+                <td><button #tbSteel class="Steel typeButton group1" (click)="updateType(tbSteel)">Steel</button></td>
+                <td><button #tbWater class="Water typeButton group1" (click)="updateType(tbWater)">Water</button></td>
+            </tr>
+        </table>
     </div>
     <div class="buttonSet2">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Type 2
-              </mat-panel-title>
-              <mat-panel-description>
-                Click here to choose type 2
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <table>
-                <tr>
-                    <td><button class="buttonAny typeButton" (click)="searchValues.type2='Any'">Any</button></td>
-                    <td><button class="buttonNone typeButton" (click)="searchValues.type2='None'">None</button></td>
-                    <td><button class="buttonBug typeButton" (click)="searchValues.type2='Bug'">Bug</button></td>
-                    <td><button class="buttonDark typeButton" (click)="searchValues.type2='Dark'">Dark</button></td>
-                    <td><button class="buttonDragon typeButton" (click)="searchValues.type2='Dragon'">Dragon</button></td>
-                </tr>
-                <tr>
-                    <td><button class="buttonElectric typeButton" (click)="searchValues.type2='Electric'">Electric</button></td>
-                    <td><button class="buttonFairy typeButton" (click)="searchValues.type2='Fairy'">Fairy</button></td>
-                    <td><button class="buttonFighting typeButton" (click)="searchValues.type2='Fighting'">Fighting</button></td>
-                    <td><button class="buttonFire typeButton" (click)="searchValues.type2='Fire'">Fire</button></td>
-                    <td><button class="buttonFlying typeButton" (click)="searchValues.type2='Flying'">Flying</button></td>
-                </tr>
-                <tr>
-                    <td><button class="buttonGhost typeButton" (click)="searchValues.type2='Ghost'">Ghost</button></td>
-                    <td><button class="buttonGrass typeButton" (click)="searchValues.type2='Grass'">Grass</button></td>
-                    <td><button class="buttonGround typeButton" (click)="searchValues.type2='Ground'">Ground</button></td>
-                    <td><button class="buttonIce typeButton" (click)="searchValues.type2='Ice'">Ice</button></td>
-                    <td><button class="buttonNormal typeButton" (click)="searchValues.type2='Normal'">Normal</button></td>
-                </tr>
-                <tr>
-                    <td><button class="buttonPoison typeButton" (click)="searchValues.type2='Poison'">Poison</button></td>
-                    <td><button class="buttonPsychic typeButton" (click)="searchValues.type2='Psychic'">Psychic</button></td>
-                    <td><button class="buttonRock typeButton" (click)="searchValues.type2='Rock'">Rock</button></td>
-                    <td><button class="buttonSteel typeButton" (click)="searchValues.type2='Steel'">Steel</button></td>
-                    <td><button class="buttonWater typeButton" (click)="searchValues.type2='Water'">Water</button></td>
-                </tr>
-            </table>
-        </mat-expansion-panel>
+        <h1>Type 2:&nbsp;&nbsp;
+            <button class="{{searchValues.type2}}">{{searchValues.type2}}</button>
+        </h1>
+        <hr style="border: 1px solid #3d55b3; width: 50%;">
+        <table>
+            <tr>
+                <td><button #tbAny2 class="Any typeButton group2 selected" (click)="updateType(tbAny2)">Any</button></td>
+                <td><button #tbNone2 class="None typeButton group2" (click)="updateType(tbNone2)">None</button></td>
+                <td><button #tbBug2 class="Bug typeButton group2" (click)="updateType(tbBug2)">Bug</button></td>
+                <td><button #tbDark2 class="Dark typeButton group2" (click)="updateType(tbDark2)">Dark</button></td>
+                <td><button #tbDragon2 class="Dragon typeButton group2" (click)="updateType(tbDragon2)">Dragon</button></td>
+            </tr>
+            <tr>
+                <td><button #tbElectric2 class="Electric typeButton group2" (click)="updateType(tbElectric2)">Electric</button></td>
+                <td><button #tbFairy2 class="Fairy typeButton group2" (click)="updateType(tbFairy2)">Fairy</button></td>
+                <td><button #tbFighting2 class="Fighting typeButton group2" (click)="updateType(tbFighting2)">Fighting</button></td>
+                <td><button #tbFire2 class="Fire typeButton group2" (click)="updateType(tbFire2)">Fire</button></td>
+                <td><button #tbFlying2 class="Flying typeButton group2" (click)="updateType(tbFlying2)">Flying</button></td>
+            </tr>
+            <tr>
+                <td><button #tbGhost2 class="Ghost typeButton group2" (click)="updateType(tbGhost2)">Ghost</button></td>
+                <td><button #tbGrass2 class="Grass typeButton group2" (click)="updateType(tbGrass2)">Grass</button></td>
+                <td><button #tbGround2 class="Ground typeButton group2" (click)="updateType(tbGround2)">Ground</button></td>
+                <td><button #tbIce2 class="Ice typeButton group2" (click)="updateType(tbIce2)">Ice</button></td>
+                <td><button #tbNormal2 class="Normal typeButton group2" (click)="updateType(tbNormal2)">Normal</button></td>
+            </tr>
+            <tr>
+                <td><button #tbPoison2 class="Poison typeButton group2" (click)="updateType(tbPoison2)">Poison</button></td>
+                <td><button #tbPsychic2 class="Psychic typeButton group2" (click)="updateType(tbPsychic2)">Psychic</button></td>
+                <td><button #tbRock2 class="Rock typeButton group2" (click)="updateType(tbRock2)">Rock</button></td>
+                <td><button #tbSteel2 class="Steel typeButton group2" (click)="updateType(tbSteel2)">Steel</button></td>
+                <td><button #tbWater2 class="Water typeButton group2" (click)="updateType(tbWater2)">Water</button></td>
+            </tr>
+        </table>
     </div>
-    <div class="selections">
-        <div class="type1selection">
-            <h2>Type 1:&nbsp;&nbsp;
-                <button class="button{{searchValues.type1}}">{{searchValues.type1}}</button>
-            </h2>
-        </div>
-        <div class="type2selection">
-            <h2>Type 2:&nbsp;&nbsp;
-                <button class="button{{searchValues.type2}}">{{searchValues.type2}}</button>
-            </h2>
-        </div>
-        <div class="slider">
+    <div class="selectionFooter">
+        <div class="selections">
             <h2>Generation</h2>
             <mat-slider min="1" max="9" step="1" value="test" showTickMarks discrete>
                 <input matSliderStartThumb (change)="updateGenFrom($event)">
                 <input matSliderEndThumb (change)="updateGenThru($event)">
-          </mat-slider>
-        </div> 
-    </div>
-    <div class="sendQuery">
-        <br/>
-        <button class="pushable" (click)="queryPokemon()">
-            <span class="shadow"></span>
-            <span class="edge"></span>
-            <span class="front">
-                Query
-            </span>
-        </button>
+            </mat-slider>
+        </div>
+        <div class="sendQuery">
+            <br/>
+            <button class="pushable" (click)="queryPokemon()">
+                <span class="shadow"></span>
+                <span class="edge"></span>
+                <span class="front">
+                    Query
+                </span>
+            </button>
+        </div>
     </div>
 </div>

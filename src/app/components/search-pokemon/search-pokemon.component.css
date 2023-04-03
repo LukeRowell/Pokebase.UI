@@ -1,25 +1,5 @@
-/*
-.searchDiv {
-    width: 100%;
+input {
     height: 100%;
+    width: 100%;
+    border-radius: 5px;
 }
-
-.testing {
-    width: 50%;
-    height: 42%;
-    margin-left: 50%;
-}
-
-#searchDiv ::ng-deep .mat-form-field-appearance-fill {
-    width: 400px;
-    height: 80px;
-}
-
-#searchDiv ::ng-deep .mat-form-field.mat-form-field-flex {
-    padding: 10px 10px 10px 10px;
-}
-  
-#searchDiv ::ng-deep .mat-form-field-infix {
-    padding: 3px 0 3px 0;
-}
-*/
