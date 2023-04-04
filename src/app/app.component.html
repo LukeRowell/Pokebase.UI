@@ -74,7 +74,7 @@
     </table>
   </div>
   <div class="three">
-    <mat-tab-group [selectedIndex]="selectedView.value" (selectedIndexChange)="selectedView.setValue($event); this.appendListItems($event)" animationDuration="0ms" style="overflow-y: hidden; height: 100%; background-color: #e3e3e3;">
+    <mat-tab-group [selectedIndex]="selectedView.value" (selectedIndexChange)="selectedView.setValue($event); hideList($event)" animationDuration="0ms" style="overflow-y: hidden; height: 100%; background-color: #e3e3e3;">
       <mat-tab label="Selection Criteria" style="height: 100%">
         <div class="selectionContent">
           <app-query-pokemon
@@ -172,6 +172,6 @@
       </mat-spinner>
     </div>
   </div>
-  <div class="chartStack" id="chartStack" *ngIf="this.selectedView.value == 1">
-  </div>
+</div>
+<div class="chartStack" id="chartStack">
 </div>

@@ -51,7 +51,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTabsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

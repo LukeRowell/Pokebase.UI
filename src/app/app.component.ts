@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Optional } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Input, Output, EventEmitter, Optional, ElementRef, Directive } from '@angular/core';
 import { Pokemon } from './models/pokemon';
 import { SearchValues } from './models/SearchValues';
 import { Sort, MatSort } from '@angular/material/sort';
@@ -20,6 +20,7 @@ import { StackItem } from './models/StackItem';
 })
 export class AppComponent {
   @ViewChild(MatSort) sort = new MatSort();
+  @ViewChild('chartStack', { static: false }) stack?: ElementRef;
 
   title = 'Pokebase.UI';
   pokemonList: Pokemon[] = [];
@@ -165,7 +166,6 @@ export class AppComponent {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-
   popItem = (name: string) => {
     var activity = document.getElementById("chartStack")!;
 
@@ -253,7 +253,8 @@ export class AppComponent {
     var button = document.createElement('button');
 
     button.type = 'button';
-    button.innerHTML = buttonText;
+    button.className = 'stackItem';
+    button.innerHTML = buttonText + '  (' + sliceList.length + ')';
     button.style.position = "relative";
     button.style.borderRadius = "5px";
     button.style.cursor = "pointer";
@@ -275,6 +276,7 @@ export class AppComponent {
   }
 
   appendListItems(event: any) {
+    console.log('stack: ', this.stack);
     if (event == 1) {
       console.log('appendListItems');
       console.log(this.listStack);
@@ -283,43 +285,27 @@ export class AppComponent {
 
       for (let i = 0; i < this.listStack.length; i++) {
         if (i > 0) {
-          activity.appendChild(this.listStack[i].arrow);
+          //activity.appendChild(this.listStack[i].arrow);
         }
-        activity.appendChild(this.listStack[i].button);
+        //activity.appendChild(this.listStack[i].button);
       }
     }
-  }
-
-  addItem(buttonText: string) {
-    var activity = document.getElementById("chartStack")!;
-
-    /*
-    var button = document.createElement('button');
-    var svg = document.createElement('svg');
-
-    svg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg>`;
-
-    button.type = 'button';
-    button.innerHTML = buttonText;
-    button.style.position = "relative";
-    //button.style.height = "45%";
-    button.style.borderRadius = "5px";
-    button.style.cursor = "pointer";
-    button.onclick = this.popSlice;
-
-    svg.style.position = "relative";
-    svg.style.top = "8%";
-    svg.style.marginLeft = "0.5%";
-    svg.style.marginRight = "0.5%";
-    */
   }
 
   updatePokemonListFromQuery(pokemon: Pokemon[]) {
     this.doneLoading = false;
 
     if (this.clearStack) {
+      const buttonElements = document.getElementsByClassName('stackItem')!;
+      const arrowElements = document.getElementsByClassName('stackItemArrow')!;
+      
+      while(buttonElements.length > 0) {
+        buttonElements[0].parentNode!.removeChild(buttonElements[0]);
+      }
+      
+      while(arrowElements.length > 0) {
+        arrowElements[0].parentNode!.removeChild(arrowElements[0]);
+      }
       this.listStack = [];
     }
 
@@ -413,10 +399,12 @@ export class AppComponent {
     }
 
     if (this.clearStack) {
+      var activity = document.getElementById('chartStack')!;
       var button = document.createElement('button');
 
       button.type = 'button';
-      button.innerHTML = `Main List`;
+      button.className = 'stackItem';
+      button.innerHTML = 'Main List  (' + this.pokemonList.length.toString() + ')';
       button.style.position = "relative";
       button.style.borderRadius = "5px";
       button.style.cursor = "pointer";
@@ -426,10 +414,17 @@ export class AppComponent {
 
       let newItem = new StackItem(pokemon, button);
       this.listStack.push(newItem);
+
+      activity.appendChild(newItem.button);
     }
 
     this.clearStack = true;
     this.doneLoading = true;
+  }
+
+  hideList(event: any) {
+    var listDiv = document.getElementById('chartStack')!;
+    listDiv.style.display = (event == 1 ? 'flex' : 'none');
   }
 
   //When a pokemon is searched, clear the list and add the new pokemon
