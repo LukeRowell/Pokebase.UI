@@ -181,7 +181,6 @@ export class AppComponent {
       this.listStack.pop();
     }
 
-    console.log(this.listStack.length);
     this.clearStack = false;
     this.updatePokemonListFromQuery(this.listStack[this.listStack.length - 1].pokemonList);
   }
