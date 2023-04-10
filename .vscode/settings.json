@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e5270f83-f65d-40eb-a8e2-bd4ce2606cff/resourceGroups/pokebase-app_group/providers/Microsoft.Web/sites/pokebase-app",
+    "appService.deploySubpath": "dist\\pokebase.ui"
+}
