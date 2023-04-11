@@ -12,6 +12,7 @@ import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FormControl } from '@angular/forms';
 import { _MatRadioButtonBase } from '@angular/material/radio';
 import { StackItem } from './models/StackItem';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,6 @@ export class AppComponent {
   @ViewChild(MatSort) sort = new MatSort();
   @ViewChild('chartStack', { static: false }) stack?: ElementRef;
 
-  title = 'Pokebase.UI';
   pokemonList: Pokemon[] = [];
   sliceListStack: Pokemon[][] = [];
   pokemonToFind?: Pokemon;
@@ -100,7 +100,9 @@ export class AppComponent {
   public monoVsDualChartLabels = [['']];
   public totalChartLabels = [['']];
 
-  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar, private titleService: Title) { 
+    this.titleService.setTitle("Pokébase");
+  }
 
   ngOnInit() : void { 
     this.selectedView.setValue(0);
@@ -184,7 +186,6 @@ export class AppComponent {
     this.clearStack = false;
     this.updatePokemonListFromQuery(this.listStack[this.listStack.length - 1].pokemonList);
   }
-
 
   chartClicked(event: any) {
     var activity = document.getElementById("chartStack")!;
