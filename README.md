@@ -3,6 +3,8 @@
 Pokébase is a single-page web application which can be used to both generate arbitrary lists of Pokémon and 
 visualize that data with charts.
 
+Check out the live version here: https://pokebase-app.azurewebsites.net/
+
 ## Usage
 
 On the "Selection Criteria" tab select the criteria for any Pokémon which you wish to see. When you're done
