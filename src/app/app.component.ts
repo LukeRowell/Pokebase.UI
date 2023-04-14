@@ -62,7 +62,7 @@ export class AppComponent {
       datalabels: {
         align: "end",
         anchor: "end",
-        offset: (context) => {
+        /*offset: (context) => {
           var index = context.dataIndex;
           var value = context.dataset.data[index]!;
 
@@ -76,9 +76,9 @@ export class AppComponent {
           }
           
           return this.offsetVal;
-        },
+        },*/
         clip: false,
-        display: true,
+        display: 'auto',
         color: "black",
         formatter: (value, ctx) => {
           if (ctx.chart.data.labels) {

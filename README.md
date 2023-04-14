@@ -1,27 +1,25 @@
-# PokebaseUI
+# Pokébase
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.5.
+Pokébase is a single-page web application which can be used to both generate arbitrary lists of Pokémon and 
+visualize that data with charts.
 
-## Development server
+## Usage
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+On the "Selection Criteria" tab select the criteria for any Pokémon which you wish to see. When you're done
+hit the query button, and you'll be brought to the "Results & Charts" section to view the results. From there
+you can use the "Copy/Export List" button to copy that list to the clipboard, or export it to a .csv file. 
+You may also further refine the results by clicking on the pie slices in the different graphs.
 
-## Code scaffolding
+## Built With
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* [Angular](https://angular.io/)
+* [Angular Material](https://material.angular.io/)
+* [ng2-charts](https://www.npmjs.com/package/ng2-charts)
+* [Azure](https://azure.microsoft.com/en-us)
 
-## Build
+For more details on the back-end, please see my [Pokebase.API](https://github.com/LukeRowell/Pokebase.API) repository.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+**NOTE**: Pokébase is still undergoing active development, so the features and styles you see on the application
+may change from day to day. Additionally if the app goes down, it should be back up momentarily so thanks for 
+your patience!
