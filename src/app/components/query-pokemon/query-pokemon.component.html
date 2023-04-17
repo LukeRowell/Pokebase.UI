@@ -74,11 +74,42 @@
     </div>
     <div class="selectionFooter">
         <div class="selections">
+            <div class="title">
+                Generation(s)
+            </div>
+            <div class="checkboxes">
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[0]">1</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[1]">2</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[2]">3</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[3]">4</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[4]">5</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[5]">6</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[6]">7</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[7]">8</mat-checkbox>
+                <mat-checkbox style="width: 33%; height: 33%" [(ngModel)]="genValues[8]">9</mat-checkbox>
+            </div>
+            <div class="selectAll">
+                <button mat-raised-button style="height: 75%; width: 75%; background-color: green; color: white;" (click)="updateGenValues(true)">Select All</button>
+            </div>
+            <div class="clearAll">
+                <button mat-raised-button style="height: 75%; width: 75%; background-color: red; color: white;" (click)="updateGenValues(false)">Clear All</button>
+            </div>
+            <div class="randomGenerations">
+                <button mat-raised-button style="height: 75%; width: 75%; background-color: black; color: white;" (click)="randomizeGenValues()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dice-5" viewBox="0 0 16 16">
+                        <path d="M13 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h10zM3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3z"/>
+                        <path d="M5.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm4-4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                    Random
+                </button>
+            </div>
+            <!--
             <h2>Generation</h2>
             <mat-slider min="1" max="9" step="1" value="test" showTickMarks discrete>
                 <input matSliderStartThumb (change)="updateGenFrom($event)">
                 <input matSliderEndThumb (change)="updateGenThru($event)">
             </mat-slider>
+            -->
         </div>
         <div class="sendQuery">
             <br/>

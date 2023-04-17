@@ -13,6 +13,7 @@ export class QueryPokemonComponent {
   @Output() viewSwapped = new EventEmitter<any>();
 
   searchValues = new SearchValues();
+  genValues: boolean [] = [false, false, false, false, false, false, false, false, false];
   test = 1;
 
   //Inject the pokemon service
@@ -49,6 +50,23 @@ export class QueryPokemonComponent {
 
   updateGenThru(event?: any) {
     this.searchValues.genThru = parseInt(event.target.ariaValueText);
+  }
+
+  updateGenValues(value: boolean) {
+    for (let i = 0; i < this.genValues.length; i++) {
+      this.genValues[i] = value;
+    }
+  }
+
+  randomizeGenValues() {
+    let numbersToGenerate = Math.floor(Math.random() * (9 - 2 + 1) + 2);
+    
+    this.updateGenValues(false);
+
+    while (numbersToGenerate--) {
+      let valueIndex = Math.floor(Math.random() * (9 - 2 + 1) + 2);
+      this.genValues[valueIndex - 1] = true;
+    }
   }
 
   updateType(elem: HTMLElement) {
