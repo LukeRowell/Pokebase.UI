@@ -46,12 +46,12 @@
     height: 50%;
     display: grid;
     grid-template-rows: 0.4fr 1fr 1fr;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .title {
     grid-row: 1;
-    grid-column: 1 / 4;
+    grid-column: 1 / 5;
     border: 2px solid gray;
     border-radius: 5px;
     border-bottom-width: 0;

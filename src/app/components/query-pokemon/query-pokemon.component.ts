@@ -26,6 +26,7 @@ export class QueryPokemonComponent {
     this.searchValues.type2 = 'Any';
     this.searchValues.genFrom = 1;
     this.searchValues.genThru = 1;
+    this.searchValues.genValues = [true, false, false, false, false, false, false, false, false];
     this.searchValues.sortVal = 'ndexno';
     this.searchValues.orderVal = 'ASC';
 
@@ -54,7 +55,7 @@ export class QueryPokemonComponent {
 
   updateGenValues(value: boolean) {
     for (let i = 0; i < this.genValues.length; i++) {
-      this.genValues[i] = value;
+      this.searchValues.genValues[i] = value;
     }
   }
 
@@ -65,7 +66,7 @@ export class QueryPokemonComponent {
 
     while (numbersToGenerate--) {
       let valueIndex = Math.floor(Math.random() * (9 - 2 + 1) + 2);
-      this.genValues[valueIndex - 1] = true;
+      this.searchValues.genValues[valueIndex - 1] = true;
     }
   }
 
