@@ -1,5 +1,6 @@
 
 <div class="queryDiv">
+    <!--
     <div class="buttonSet1">
         <h1>Type 1:&nbsp;&nbsp;
             <button class="{{searchValues.type1}}">{{searchValues.type1}}</button>
@@ -36,6 +37,163 @@
             </tr>
         </table>
     </div>
+    -->
+    <div class="typeSet2">
+        <div class="typeSet2Selections">
+            <div class="typeSet2Title">
+                Types
+            </div>
+            <div class="typeSet2Checkboxes">
+                <div class="typeCheckContainer" style="grid-row: 1; grid-column: 1;">
+                    <mat-checkbox class="Any1" [(ngModel)]="typeValues.values[0]" (click)="updateTypes(0)">
+                        <div class="AnyColor typeCheck">
+                            Any (1)
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 1; grid-column: 2;">
+                    <mat-checkbox class="Any2" [(ngModel)]="typeValues.values[1]" (click)="updateTypes(1)">
+                        <div class="AnyColor typeCheck">
+                            Any (2)
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 1; grid-column: 3;">
+                    <mat-checkbox class="Bug" [(ngModel)]="typeValues.values[2]" (click)="updateTypes(2)">
+                        <div class="BugColor typeCheck">
+                            Bug
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 1; grid-column: 4;">
+                    <mat-checkbox class="Dark" [(ngModel)]="typeValues.values[3]" (click)="updateTypes(3)">
+                        <div class="DarkColor typeCheck">
+                            Dark
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 1; grid-column: 5;">
+                    <mat-checkbox class="Dragon" [(ngModel)]="typeValues.values[4]" (click)="updateTypes(4)">
+                        <div class="DragonColor typeCheck">
+                            Dragon
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 2; grid-column: 1;">
+                    <mat-checkbox class="Electric" [(ngModel)]="typeValues.values[5]" (click)="updateTypes(5)">
+                        <div class="ElectricColor typeCheck">
+                            Electric
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 2; grid-column: 2;">
+                    <mat-checkbox class="Fairy" [(ngModel)]="typeValues.values[6]" (click)="updateTypes(6)">
+                        <div class="FairyColor typeCheck">
+                            Fairy
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 2; grid-column: 3;">
+                    <mat-checkbox class="Fighting" [(ngModel)]="typeValues.values[7]" (click)="updateTypes(7)">
+                        <div class="FightingColor typeCheck">
+                            Fighting
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 2; grid-column: 4;">
+                    <mat-checkbox class="Fire" [(ngModel)]="typeValues.values[8]" (click)="updateTypes(8)">
+                        <div class="FireColor typeCheck">
+                            Fire
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 2; grid-column: 5;">
+                    <mat-checkbox class="Flying" [(ngModel)]="typeValues.values[9]" (click)="updateTypes(9)">
+                        <div class="FlyingColor typeCheck">
+                            Flying
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 3; grid-column: 1;">
+                    <mat-checkbox class="Ghost" [(ngModel)]="typeValues.values[10]" (click)="updateTypes(10)">
+                        <div class="GhostColor typeCheck">
+                            Ghost
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 3; grid-column: 2;">
+                    <mat-checkbox class="Grass" [(ngModel)]="typeValues.values[11]" (click)="updateTypes(11)">
+                        <div class="GrassColor typeCheck">
+                            Grass
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 3; grid-column: 3;">
+                    <mat-checkbox class="Ground" [(ngModel)]="typeValues.values[12]" (click)="updateTypes(12)">
+                        <div class="GroundColor typeCheck">
+                            Ground
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 3; grid-column: 4;">
+                    <mat-checkbox class="Ice" [(ngModel)]="typeValues.values[13]" (click)="updateTypes(13)">
+                        <div class="IceColor typeCheck">
+                            Ice
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 3; grid-column: 5;">
+                    <mat-checkbox class="Normal" [(ngModel)]="typeValues.values[14]" (click)="updateTypes(14)">
+                        <div class="NormalColor typeCheck">
+                            Normal
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 4; grid-column: 1;">
+                    <mat-checkbox class="Poison" [(ngModel)]="typeValues.values[15]" (click)="updateTypes(15)">
+                        <div class="PoisonColor typeCheck">
+                            Poison
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 4; grid-column: 2;">
+                    <mat-checkbox class="Psychic" [(ngModel)]="typeValues.values[16]" (click)="updateTypes(16)">
+                        <div class="PsychicColor typeCheck">
+                            Psychic
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 4; grid-column: 3;">
+                    <mat-checkbox class="Rock" [(ngModel)]="typeValues.values[17]" (click)="updateTypes(17)">
+                        <div class="RockColor typeCheck">
+                            Rock
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 4; grid-column: 4;">
+                    <mat-checkbox class="Steel" [(ngModel)]="typeValues.values[18]" (click)="updateTypes(18)">
+                        <div class="SteelColor typeCheck">
+                            Steel
+                        </div>
+                    </mat-checkbox>
+                </div>
+                <div class="typeCheckContainer" style="grid-row: 4; grid-column: 5;">
+                    <mat-checkbox class="Water" [(ngModel)]="typeValues.values[19]" (click)="updateTypes(19)">
+                        <div class="WaterColor typeCheck">
+                            Water
+                        </div>
+                    </mat-checkbox>
+                </div>
+            </div>
+            <div class="type1Display AnyColor">
+                {{this.searchValues.type1}}
+            </div>
+            <div class="type2Display AnyColor">
+                {{this.searchValues.type2}}
+            </div>
+        </div>
+    </div>
+    <!--
     <div class="buttonSet2">
         <h1>Type 2:&nbsp;&nbsp;
             <button class="{{searchValues.type2}}">{{searchValues.type2}}</button>
@@ -72,6 +230,7 @@
             </tr>
         </table>
     </div>
+    -->
     <div class="selectionFooter">
         <div class="selections">
             <div class="title">

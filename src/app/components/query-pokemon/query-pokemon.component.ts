@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { SearchValues } from 'src/app/models/SearchValues';
+import { TypeValues } from 'src/app/models/TypeValues';
 
 @Component({
   selector: 'app-query-pokemon',
@@ -14,7 +15,9 @@ export class QueryPokemonComponent {
 
   searchValues = new SearchValues();
   genValues: boolean [] = [false, false, false, false, false, false, false, false, false];
-  test = 1;
+  typeValues = new TypeValues();
+  type1Index = 0;
+  type2Index = 1;
 
   //Inject the pokemon service
   constructor(private pokemonService: PokemonService) {}
@@ -35,6 +38,10 @@ export class QueryPokemonComponent {
       .subscribe((pokemon: Pokemon[]) => this.tableUpdated.emit(pokemon));
 
     this.searchValues.genThru = 9;
+
+    this.typeValues.values[0] = true;
+    this.typeValues.values[1] = true;
+    this.typeValues.total = 2;
   }
 
   queryPokemon() {
@@ -82,6 +89,73 @@ export class QueryPokemonComponent {
     
     elem.classList.add('selected');
     elem.classList.contains('group1') ? this.searchValues.type1 = elem.classList[0] : this.searchValues.type2 = elem.classList[0];
+  }
+
+  updateTypes(typeIndex: number) {
+    //var checkbox = document.getElementsByClassName(typeName);
+    let name = (typeIndex == 0 || typeIndex == 1) ? "Any" : this.typeValues.names[typeIndex];
+    let direction = (this.typeValues.values[typeIndex]) ? 1 : -1;
+    let type1Selected = false;
+
+    switch (this.typeValues.total) {
+      case 0: 
+        this.searchValues.type1 = name;
+        this.typeValues.total += direction;
+        this.type1Index = typeIndex;
+        break;
+      case 1:
+        if (direction < 0) {
+          if (typeIndex == this.type1Index) {
+            this.searchValues.type1 = "None";
+            this.type1Index = -1;
+          }
+          else {
+            this.searchValues.type2 = "None";
+            this.type2Index = -1;
+          }
+        }
+        else {
+          if (this.searchValues.type1 == "None") {
+            this.searchValues.type1 = name;
+            this.type1Index = typeIndex;
+            type1Selected = true;
+          }
+          else {
+            this.searchValues.type2 = name;
+            this.type2Index = typeIndex;
+          }
+        }
+
+        this.typeValues.total += direction;
+        break;
+      case 2:
+        if (direction > 0) {
+          this.typeValues.values[typeIndex] = false;
+        }
+        else {
+          if (typeIndex == this.type1Index) {
+            this.searchValues.type1 = "None";
+            this.type1Index = -1;
+            type1Selected = true;
+          }
+          else {
+            this.searchValues.type2 = "None";
+            this.type2Index = -1;
+          }
+
+          this.typeValues.total += direction;
+        }
+        break;
+    }
+
+    if (type1Selected) {
+      var typeElemToUpdate = document.getElementsByClassName("type1Display");
+      typeElemToUpdate[0].className = "type1Display " + this.searchValues.type1 + "Color";
+    }
+    else {
+      var typeElemToUpdate = document.getElementsByClassName("type2Display");
+      typeElemToUpdate[0].className = "type2Display " + this.searchValues.type2 + "Color";
+    }
   }
 
   log() {
