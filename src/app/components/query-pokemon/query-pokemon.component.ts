@@ -66,6 +66,43 @@ export class QueryPokemonComponent {
     }
   }
 
+  randomizeTypeValue(typeToChange: number) {
+    let done = false;
+    let randomTypeIndex = 0;
+
+    while (!done) {
+      randomTypeIndex = Math.floor(Math.random() * (21 - 1 + 1) + 1) - 1;
+
+      let type1Cond = (randomTypeIndex != this.type1Index && randomTypeIndex != this.type2Index && randomTypeIndex != 1 && typeToChange == 1);
+      let type2Cond = (randomTypeIndex != this.type2Index && randomTypeIndex != this.type1Index && randomTypeIndex != 0 && typeToChange == 2);
+
+      if (type1Cond || type2Cond) {
+        done = true;
+      }
+    }
+
+    if (typeToChange == 1) {
+      var typeElemToUpdate = document.getElementsByClassName("type1Display");
+
+      this.typeValues.values[this.type1Index] = false;
+      this.type1Index = randomTypeIndex;
+      this.typeValues.values[this.type1Index] = true;
+      this.searchValues.type1 = this.typeValues.names[this.type1Index];
+
+      typeElemToUpdate[0].className = "type1Display " + this.searchValues.type1 + "Color";
+    }
+    else {
+      var typeElemToUpdate = document.getElementsByClassName("type2Display");
+
+      this.typeValues.values[this.type2Index] = false;
+      this.type2Index = randomTypeIndex;
+      this.typeValues.values[this.type2Index] = true;
+      this.searchValues.type2 = this.typeValues.names[this.type2Index];
+
+      typeElemToUpdate[0].className = "type2Display " + this.searchValues.type2 + "Color";
+    }
+  }
+
   randomizeGenValues() {
     let numbersToGenerate = Math.floor(Math.random() * (9 - 2 + 1) + 2);
     

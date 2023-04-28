@@ -1,29 +1,46 @@
 <div mat-dialog-container>
   <h1 mat-dialog-title style="border-bottom: 1px solid black;">Export List</h1>
-  <div class mat-dialog-content>
-    <label>&nbsp;&nbsp;File type: </label>
-    <mat-radio-group *ngFor="let type of dialogValues.fileTypes" [(ngModel)]="dialogValues.selectedType">
-      <mat-radio-button [value]="type">
-        {{type}}
-      </mat-radio-button>
-    </mat-radio-group>
-    <br/>
-    <mat-checkbox [(ngModel)]="dialogValues.includeHeaders">Include headers?</mat-checkbox>
-    <h2 style="padding-left: 10px;">Columns</h2>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeNdexno">#</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeName">Name</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeType1">Type 1</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeType2">Type 2</mat-checkbox>
-    <br/>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeHP">HP</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeAttack">Attack</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeDefense">Defense</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeSpatk">Sp. Atk</mat-checkbox>
-    <br/>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeSpdef">Sp. Def</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeSpeed">Speed</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeTotal">Total</mat-checkbox>
-    <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeGen">Gen</mat-checkbox>
+  <div class mat-dialog-content style="display: grid; grid-template-rows: 0.3fr 1fr;">
+    <div class="row1" style="grid-row: 1;">
+      <label>&nbsp;&nbsp;File type: </label>
+      <mat-radio-group *ngFor="let type of dialogValues.fileTypes" [(ngModel)]="dialogValues.selectedType">
+        <mat-radio-button [value]="type">
+          {{type}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-checkbox style="float: right;" [(ngModel)]="dialogValues.includeHeaders">
+        Include headers?
+      </mat-checkbox>
+    </div>
+    <div class="row2" style="grid-row: 2; margin-top: 5%;">
+      <div class="headerRow" style="display: grid; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr;">
+        <h2 style="grid-column: 1; padding-left: 10px;">
+          Columns
+        </h2>
+        <div class="selectAll" style="grid-column: 2;">
+          <button mat-raised-button style="float: right; height: 75%; width: 70%; background-color: green; color: white;" (click)="updateFieldValues(true)">Select All</button>
+        </div>
+        <div class="clearAll" style="grid-column: 3;">
+            <button mat-raised-button style="float: right; height: 75%; width: 70%; background-color: red; color: white;" (click)="updateFieldValues(false)">Clear All</button>
+        </div>
+      </div>
+      <div class="dialogCheckboxes">
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeNdexno">#</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeName">Name</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeType1">Type 1</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeType2">Type 2</mat-checkbox>
+        <br/>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeHP">HP</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeAttack">Attack</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeDefense">Defense</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeSpatk">Sp. Atk</mat-checkbox>
+        <br/>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeSpdef">Sp. Def</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeSpeed">Speed</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeTotal">Total</mat-checkbox>
+        <mat-checkbox style="width: 25%" [(ngModel)]="dialogValues.includeGen">Gen</mat-checkbox>
+      </div>
+    </div>
   </div>
   <div mat-dialog-actions style="width: 100%; overflow-y: hidden;">
     <button mat-button (click)="setExporting(false)" [mat-dialog-close]="dialogValues">Close</button>

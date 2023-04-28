@@ -1,8 +1,8 @@
 export class TypeValues {
     total = 0;
     names = [ 
-        "Any1",
-        "Any2",
+        "Any",
+        "Any",
         "Bug",
         "Dark",
         "Dragon",
@@ -20,7 +20,8 @@ export class TypeValues {
         "Psychic",
         "Rock",
         "Steel",
-        "Water"
+        "Water",
+        "None"
     ];
     values = [
         false,

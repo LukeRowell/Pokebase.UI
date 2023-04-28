@@ -561,10 +561,8 @@ export class AppComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogExportListDialog, {
-      width: '33%',
-      height: '35%',
-      maxWidth: '500px',
-      minHeight: '400px',
+      width: '500px',
+      height: '400px',
       panelClass: 'custom-modal',
       data: this.dialogValues
     });
@@ -705,5 +703,20 @@ export class DialogExportListDialog {
 
   copyToClipboard() {
     this.clipboardUpdated.emit();
+  }
+
+  updateFieldValues(value: boolean) {
+    this.dialogValues.includeNdexno = value;
+    this.dialogValues.includeName = value;
+    this.dialogValues.includeType1 = value;
+    this.dialogValues.includeType2 = value;
+    this.dialogValues.includeHP = value;
+    this.dialogValues.includeAttack = value;
+    this.dialogValues.includeDefense = value;
+    this.dialogValues.includeSpatk = value;
+    this.dialogValues.includeSpdef = value;
+    this.dialogValues.includeSpeed = value;
+    this.dialogValues.includeTotal = value;
+    this.dialogValues.includeGen = value;
   }
 }
